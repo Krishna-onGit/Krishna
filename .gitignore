@@ -28,6 +28,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# temporary skill directory
+.temp-taste-skill
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
