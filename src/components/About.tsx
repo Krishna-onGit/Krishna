@@ -182,7 +182,7 @@ export default function About() {
         </div>
 
         {/* Metrics Row */}
-        <div className="mt-16 md:mt-32 flex flex-wrap gap-x-16 gap-y-10 border-t border-white/5 pt-12">
+        <div className="mt-16 md:mt-32 grid grid-cols-3 gap-2 md:gap-16 border-t border-white/5 pt-12">
           {METRICS.map((metric, i) => (
             <motion.div
               key={i}
@@ -192,10 +192,10 @@ export default function About() {
               transition={{ duration: 0.6, delay: 1 + (i * 0.1) }}
               className="flex flex-col gap-3 group cursor-default"
             >
-              <span className="text-[36px] md:text-[48px] font-serif text-[#A67C52] leading-none transition-transform duration-500 group-hover:-translate-y-2">
+              <span className="text-[28px] md:text-[48px] font-serif text-[#A67C52] leading-none transition-transform duration-500 group-hover:-translate-y-2">
                 <CountUp value={metric.value} suffix={metric.suffix} startTrigger={shouldAnimateMetrics} />
               </span>
-              <span className="text-[10px] md:text-[12px] uppercase tracking-[0.2em] text-white/60 max-w-[140px] leading-snug font-mono">
+               <span className="text-[8px] md:text-[12px] uppercase tracking-[0.1em] md:tracking-[0.2em] text-white/60 max-w-[80px] md:max-w-[140px] leading-snug font-mono">
                 {metric.label}
               </span>
             </motion.div>

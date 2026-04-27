@@ -350,7 +350,7 @@ export default function Projects() {
 
             {/* Trailing spacer */}
             <div className="w-[30vw] shrink-0 flex items-center justify-center">
-              <span className="font-serif text-4xl text-white/20 italic opacity-40 animate-pulse">Keep scrolling</span>
+              <span className="font-serif text-3xl md:text-4xl text-white/50 italic animate-pulse">Keep scrolling</span>
             </div>
           </div>
         </div>

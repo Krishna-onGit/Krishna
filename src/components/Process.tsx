@@ -49,15 +49,18 @@ function ProcessStage({
     offset: ["start end", "end start"]
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
+  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const textY = useSpring(useTransform(scrollYProgress, [0, 1], [100, -100]), springConfig);
+  const imageY = useSpring(useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]), springConfig);
+  const cardY = useSpring(useTransform(scrollYProgress, [0, 1], [150, -150]), springConfig);
 
   return (
     <motion.div
       ref={ref}
-      className={`min-h-0 md:min-h-screen flex items-center py-0 md:py-24 mb-24 md:mb-0 last:mb-0 process-stage-snap transition-all duration-700 ${isInView ? 'opacity-100 scale-100' : 'opacity-100 md:opacity-30 scale-100 md:scale-95'}`}
+      className={`min-h-0 md:min-h-screen flex items-center py-0 md:py-24 mb-48 md:mb-0 last:mb-0 process-stage-snap transition-[opacity,scale] duration-700 ${isInView ? 'opacity-100 scale-100' : 'opacity-100 md:opacity-30 scale-100 md:scale-95'}`}
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-24 items-center">
-        <div className="flex flex-col items-start pl-6 md:pl-32 relative z-20">
+        <motion.div style={{ y: textY }} className="flex flex-col items-start pl-6 md:pl-32 relative z-20">
           <motion.span 
             initial={{ opacity: 0, x: -10 }}
             whileInView={{ opacity: 0.4, x: 0 }}
@@ -85,8 +88,8 @@ function ProcessStage({
           >
             {stage.desc}
           </motion.p>
-        </div>
-        <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/5 flex items-center justify-center">
+        </motion.div>
+        <motion.div style={{ y: cardY }} className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-2xl border border-white/5 flex items-center justify-center">
           <motion.div 
             className="w-full h-full relative"
             style={{ y: imageY }}
@@ -99,7 +102,7 @@ function ProcessStage({
               priority={index === 0}
             />
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   );
