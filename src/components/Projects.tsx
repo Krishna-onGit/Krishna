@@ -63,11 +63,11 @@ function ProjectRow({
       className="group relative pt-8 pb-[10px] mb-[12px] last:mb-0 grid grid-cols-[1fr_auto] items-center z-10"
       data-cursor="View →"
     >
-      <div className="flex flex-col gap-0">
+      <div className="flex flex-col gap-0 min-w-0">
         <motion.h3 
           animate={{ x: isHovered ? 8 : 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="m-0 text-[26px] md:text-[34px] font-medium text-white/80 group-hover:text-white transition-colors duration-300 tracking-[-0.3px]"
+          className="m-0 text-[24px] md:text-[34px] font-normal text-white/80 group-hover:text-white transition-colors duration-300 tracking-[-0.3px] whitespace-nowrap"
         >
           {work.name}
         </motion.h3>

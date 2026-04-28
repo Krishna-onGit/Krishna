@@ -72,11 +72,11 @@ export default function Stack() {
   return (
     <motion.section 
       ref={containerRef}
-      className="relative w-full section-padding page-padding overflow-hidden bg-black" 
+      className="relative w-full py-0 page-padding overflow-hidden bg-black" 
       id="stack"
       style={{ opacity: sectionOpacity, scale: sectionScale }}
     >
-      <div className="max-w-[960px] mx-auto relative z-10">
+      <div className="max-w-[960px] mx-auto relative z-10 flex flex-col gap-8 md:gap-10">
         {/* Header Section */}
         <div className="mb-0">
           <motion.span 
@@ -85,7 +85,7 @@ export default function Stack() {
             viewport={{ once: true }}
             className="text-[12px] font-mono tracking-[2px] uppercase text-white block mb-2 md:mb-4"
           >
-            07 / EMPLOYEES
+            07 / STACK
           </motion.span>
           <div className="h-8 md:hidden" aria-hidden="true" />
           
@@ -117,8 +117,7 @@ export default function Stack() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-col gap-8 md:gap-12 mt-6 md:mt-10"
-          style={{ marginTop: '24px' }}
+          className="flex flex-col gap-8 md:gap-12"
         >
           {TOOL_GROUPS.map((group) => (
             <motion.div
@@ -130,34 +129,23 @@ export default function Stack() {
                 opacity: hoveredGroup === null || hoveredGroup === group.category ? 1 : 0.4
               }}
               transition={{ duration: 0.4 }}
-              className="flex items-start gap-6 md:gap-10 group/category"
+              className="group/item flex flex-col md:flex-row md:items-baseline border-b border-white/[0.03] py-6 md:py-8 last:border-none"
             >
-              <h3 className="w-[88px] md:w-[110px] shrink-0 text-[13px] font-mono tracking-[1.5px] uppercase text-white/40 pt-1">
-                {group.category}
-              </h3>
+              <div className="w-[120px] mb-4 md:mb-0">
+                <span className="text-[11px] font-mono tracking-[3px] uppercase text-white/30 group-hover/item:text-white/60 transition-colors duration-500">
+                  {group.category}
+                </span>
+              </div>
               
-              <div className="flex flex-wrap flex-1 gap-x-7 gap-y-5">
+              <div className="flex flex-wrap gap-x-12 gap-y-4 md:gap-x-16 md:gap-y-6">
                 {group.tools.map((tool) => (
-                  <motion.div
+                  <motion.span
                     key={tool}
                     variants={toolVariants}
-                    className="relative py-1 group/tool cursor-default"
+                    className="text-[16px] md:text-[18px] text-white/70 hover:text-white transition-colors duration-300 font-mono"
                   >
-                    <motion.span 
-                      whileHover={{ 
-                        color: '#FFFFFF',
-                        y: -3,
-                        scale: 1.05,
-                      }}
-                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                      className="text-[16px] md:text-[17px] text-white/75 inline-block transition-all duration-300 font-mono"
-                    >
-                      {tool}
-                    </motion.span>
-                    
-                    {/* Underline reveal */}
-                    <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-white/40 transition-all duration-300 origin-left group-hover/tool:w-full" />
-                  </motion.div>
+                    {tool}
+                  </motion.span>
                 ))}
               </div>
             </motion.div>

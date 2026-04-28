@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black flex flex-col w-full overflow-x-hidden">
       <Navbar />
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-16 md:gap-[120px]">
         <Hero />
         <About />
         <Projects />

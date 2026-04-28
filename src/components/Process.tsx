@@ -183,7 +183,7 @@ export default function Process() {
   return (
     <motion.section 
       ref={containerRef} 
-      className="relative w-full page-padding bg-black pt-80 pb-40" 
+      className="relative w-full page-padding bg-black py-0" 
       id="process"
       style={{ opacity: sectionOpacity, scale: sectionScale }}
     >

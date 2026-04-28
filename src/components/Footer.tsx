@@ -54,7 +54,7 @@ export default function Footer() {
   return (
     <footer
       ref={containerRef}
-      className="w-full min-h-0 bg-black section-padding lg:pt-40 lg:pb-12 page-padding relative overflow-hidden flex flex-col items-center group/footer"
+      className="w-full min-h-0 bg-black pb-12 page-padding relative overflow-hidden flex flex-col items-center group/footer"
       onMouseMove={(e) => {
         const rect = containerRef.current?.getBoundingClientRect();
         if (rect) {

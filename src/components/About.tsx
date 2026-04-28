@@ -267,7 +267,7 @@ export default function About() {
   }, [activeSlide, cards.length]);
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-screen flex items-center justify-center bg-black overflow-hidden pt-32 pb-32 md:pb-64" id="about">
+    <section ref={containerRef} className="relative w-full min-h-0 flex flex-col items-center bg-black overflow-hidden py-0" id="about">
       {/* Background Watermark */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <motion.span 
@@ -278,9 +278,9 @@ export default function About() {
         </motion.span>
       </div>
 
-      <div className="w-full max-w-[1200px] mx-auto relative z-10 px-6">
+      <div className="w-full max-w-[1200px] mx-auto relative z-10 px-6 flex flex-col items-center gap-12">
         {/* Header Section */}
-        <div className="flex flex-col items-center text-center mb-12 md:mb-20">
+        <div className="flex flex-col items-center text-center">
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 0.4 }}
@@ -288,7 +288,7 @@ export default function About() {
           >
             02 / About
           </motion.span>
-          <h2 className="text-[clamp(32px,5vw,64px)] font-display text-white tracking-tight leading-none mb-4">
+          <h2 className="text-[clamp(32px,5vw,64px)] font-display text-white tracking-tight leading-none mb-6">
             I design. I build. <span className="italic text-[#A67C52]">No gap.</span>
           </h2>
         </div>

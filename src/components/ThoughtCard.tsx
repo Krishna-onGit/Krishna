@@ -81,7 +81,7 @@ export default function ThoughtCard() {
   return (
     <section 
       ref={philosophyRef}
-      className="w-full bg-black philosophy-section relative overflow-visible md:overflow-hidden page-padding section-padding min-h-[calc(100vh-240px)] flex items-center justify-center touch-pan-y"
+      className="w-full bg-black philosophy-section relative overflow-visible md:overflow-hidden page-padding py-0 min-h-0 flex flex-col items-center touch-pan-y"
     >
       <div className="w-full max-w-[1000px] mx-auto relative z-20 flex items-center justify-center">
         <motion.div
@@ -92,7 +92,7 @@ export default function ThoughtCard() {
         </motion.div>
 
         <motion.div
-          className="relative w-full max-w-[900px] mx-auto border border-white/[0.06] rounded-3xl min-h-[360px] md:min-h-[400px] overflow-visible md:overflow-hidden flex flex-col items-center justify-center touch-pan-y"
+          className="relative w-full max-w-[900px] mx-auto border border-white/15 rounded-3xl min-h-[360px] md:min-h-[400px] overflow-visible md:overflow-hidden flex flex-col items-center justify-center touch-pan-y"
           onMouseMove={(e) => { if (window.innerWidth > 768) handleQuoteMouseMove(e); }}
           onMouseEnter={() => { if (window.innerWidth > 768) setIsQuoteHovered(true); }}
           onMouseLeave={() => { if (window.innerWidth > 768) setIsQuoteHovered(false); }}
