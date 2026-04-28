@@ -5,6 +5,7 @@ import Stack from "@/components/Stack";
 import Projects from "@/components/Projects";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import ThoughtCard from "@/components/ThoughtCard";
 
 export default function Home() {
   return (
@@ -13,8 +14,9 @@ export default function Home() {
       <div className="flex flex-col">
         <Hero />
         <About />
-        <Process />
         <Projects />
+        <Process />
+        <ThoughtCard />
         <Stack />
         <Footer />
       </div>

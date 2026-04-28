@@ -85,7 +85,7 @@ export default function Stack() {
             viewport={{ once: true }}
             className="text-[12px] font-mono tracking-[2px] uppercase text-white block mb-2 md:mb-4"
           >
-            07 / STACK / TOOLS
+            07 / EMPLOYEES
           </motion.span>
           <div className="h-8 md:hidden" aria-hidden="true" />
           

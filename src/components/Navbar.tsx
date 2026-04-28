@@ -115,7 +115,7 @@ export default function Navbar() {
           className="hidden md:flex items-center gap-4 bg-[#1A1A1A]/10 backdrop-blur-[20px] rounded-full border border-glassBorder pointer-events-auto"
           style={{ height: '44px', paddingLeft: '29px', paddingRight: '29px' }}
         >
-          {['About', 'Process', 'Work', 'Stack'].map((item) => {
+          {['About', 'Work', 'Process', 'Stack'].map((item) => {
             const isActive = activeSection === item.toLowerCase();
             return (
               <Magnetic key={item}>

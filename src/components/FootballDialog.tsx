@@ -28,7 +28,7 @@ export default function FootballDialog() {
           onClick={() => setIsOpen(true)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="relative group cursor-pointer w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-lg md:text-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all hover:border-white/20"
+          className="relative group cursor-pointer w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/40 backdrop-blur-xl border border-white/10 rounded-full text-base md:text-lg shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all hover:border-white/20"
           data-cursor="Interact"
         >
           <div className="absolute inset-0 bg-white/5 rounded-full blur-xl scale-0 group-hover:scale-125 transition-transform duration-500 pointer-events-none" />

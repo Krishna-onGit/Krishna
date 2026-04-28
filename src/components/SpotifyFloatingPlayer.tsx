@@ -93,11 +93,11 @@ export default function SpotifyFloatingPlayer() {
           {/* Ambient Glow - Matched to Football logic */}
           <div className="absolute inset-0 bg-[#1DB954]/10 rounded-full blur-xl scale-0 group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
           
-          <div className="w-10 h-10 md:w-12 md:h-12 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center group-hover:border-[#1DB954]/20 transition-all duration-500 shadow-2xl relative">
+          <div className="w-8 h-8 md:w-10 md:h-10 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center group-hover:border-[#1DB954]/20 transition-all duration-500 shadow-2xl relative">
               <motion.div 
                 animate={{ rotate: 360 }}
                 transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                className="w-4 h-4 md:w-5 md:h-5 text-[#1DB954] opacity-70 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                className="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-[#1DB954] opacity-70 group-hover:opacity-100 transition-opacity flex items-center justify-center"
               style={{ filter: 'drop-shadow(0 0 3px rgba(29, 185, 84, 0.5))' }}
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">

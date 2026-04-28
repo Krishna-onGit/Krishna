@@ -88,6 +88,19 @@
   --font-mono: var(--font-jetbrains-mono), monospace;
 
   /* Spacing Utility Mapping */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-32: 8rem;
   --spacing-page: var(--page-margin);
   --spacing-section: var(--section-spacing);
 }
@@ -328,3 +341,24 @@ body {
 .process-stage-snap {
   scroll-snap-align: center;
 }
+
+/* Custom Spacing for About Section */
+.about-signature {
+  margin-top: 1rem; /* Reduced from 1.5rem */
+  padding-top: 0.5rem; /* Tighter top */
+  padding-bottom: 1rem; /* Tighter bottom */
+}
+
+@media (min-width: 768px) {
+  .about-signature {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Restore border on desktop */
+  }
+}
+
+.about-metrics {
+  margin-top: 1.5rem; /* Reduced from 3rem */
+  padding-top: 2rem; 
+}
+

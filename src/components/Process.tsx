@@ -57,7 +57,7 @@ function ProcessStage({
   return (
     <motion.div
       ref={ref}
-      className={`min-h-0 md:min-h-screen flex items-center py-0 md:py-24 mb-48 md:mb-0 last:mb-0 process-stage-snap transition-[opacity,scale] duration-700 ${isInView ? 'opacity-100 scale-100' : 'opacity-100 md:opacity-30 scale-100 md:scale-95'}`}
+      className={`min-h-0 md:min-h-[70vh] flex items-center py-0 md:py-12 mb-48 md:mb-0 last:mb-0 process-stage-snap transition-[opacity,scale] duration-700 ${isInView ? 'opacity-100 scale-100' : 'opacity-100 md:opacity-30 scale-100 md:scale-95'}`}
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-24 items-center">
         <motion.div style={{ y: textY }} className="flex flex-col items-start pl-6 md:pl-32 relative z-20">
@@ -183,7 +183,7 @@ export default function Process() {
   return (
     <motion.section 
       ref={containerRef} 
-      className="relative w-full page-padding bg-black process-section-snap" 
+      className="relative w-full page-padding bg-black pt-80 pb-40" 
       id="process"
       style={{ opacity: sectionOpacity, scale: sectionScale }}
     >
@@ -217,17 +217,16 @@ export default function Process() {
           />
         </motion.div>
 
-        <div className="pt-24 h-auto">
+        <div className="pt-0 h-auto">
           <motion.span
             initial={{ opacity: 0, x: -10 }}
             whileInView={{ opacity: 0.45, x: 0 }}
             viewport={{ once: true }}
-            className="text-mono text-white mb-4 md:mb-8 block pl-6 md:pl-0"
+            className="text-mono text-white mb-12 block pl-6 md:pl-0"
           >
-            03 / Process
+            06 / Process
           </motion.span>
         </div>
-        <div className="h-24 md:hidden" aria-hidden="true" />
         <div className="flex flex-col mt-0">
           {PROCESS_STAGES.map((stage, index) => (
             <React.Fragment key={stage.id}>
