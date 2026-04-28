@@ -64,7 +64,7 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className={`custom-cursor flex items-center justify-center ${isHovering ? 'hovering' : ''} ${isInkHovering ? 'ink-active' : ''}`}
+      className={`custom-cursor hidden lg:flex items-center justify-center ${isHovering ? 'hovering' : ''} ${isInkHovering ? 'ink-active' : ''}`}
       animate={{
         x: targetPoint ? targetPoint.x : mousePosition.x,
         y: targetPoint ? targetPoint.y : mousePosition.y,

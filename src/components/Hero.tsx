@@ -156,10 +156,10 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.7 }}
           transition={{ duration: 1, delay: 1.4 }}
-          className="text-[12px] md:text-body-lg text-textSecondary max-w-xl font-mono mt-4 leading-relaxed"
+          className="text-[12px] md:text-[21px] text-textSecondary max-w-xl font-mono mt-4 leading-relaxed"
         >
           Designing systems. Building experiences. <br />
-          <span className="opacity-80">Bridging the gap between code and craft.</span>
+          <span className="opacity-90">Bridging the gap between code and craft.</span>
         </motion.p>
       </motion.div>
     </section>
