@@ -3,13 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-interface SpotifyData {
-  isPlaying: boolean;
-  title?: string;
-  artist?: string;
-  albumImageUrl?: string;
-  songUrl?: string;
-}
+
 
 function SocialIcon({ icon, color }: { icon: React.ReactNode, color: string }) {
   return (
@@ -30,23 +24,7 @@ export default function Footer() {
     offset: ["start end", "end end"]
   });
 
-  const [spotifyData, setSpotifyData] = useState<SpotifyData | null>(null);
 
-  useEffect(() => {
-    const fetchSpotify = async () => {
-      try {
-        const res = await fetch('/api/spotify');
-        const data = await res.json();
-        setSpotifyData(data);
-      } catch (e) {
-        console.error('Failed to fetch Spotify data');
-      }
-    };
-
-    fetchSpotify();
-    const interval = setInterval(fetchSpotify, 30000); // Update every 30s
-    return () => clearInterval(interval);
-  }, []);
 
   const textY = useTransform(scrollYProgress, [0, 1], [120, 0]);
   const krishnaOpacity = useTransform(scrollYProgress, [0.4, 0.8], [0, 0.4]);

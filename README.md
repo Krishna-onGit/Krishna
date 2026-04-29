@@ -13,11 +13,7 @@ A premium, high-end editorial-grade portfolio built with Next.js 15, React 19, a
 This project is optimized for deployment on **Vercel**.
 
 ### Environment Variables
-Ensure the following environment variables are set in your Vercel project settings for Spotify integration:
-- `SPOTIFY_CLIENT_ID`
-- `SPOTIFY_CLIENT_SECRET`
-- `SPOTIFY_REFRESH_TOKEN`
-- `SPOTIFY_PLAYLIST_ID`
+No specific environment variables are required for basic functionality.
 
 ## Getting Started
 First, run the development server:

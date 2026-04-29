@@ -49,14 +49,26 @@ const BentoCard = ({ width, height, label, graphic, children, className = "", is
         rotateY,
         transformStyle: "preserve-3d"
       }}
+      animate={{
+        opacity: isDimmed ? 0.4 : 1,
+        scale: isDimmed ? 0.96 : 1,
+        y: isDimmed ? 10 : 0,
+        filter: isDimmed ? "grayscale(0.5) blur(1px)" : "grayscale(0) blur(0px)",
+      }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => onHover?.(true)}
       onMouseLeave={handleMouseLeave}
-      className={`relative bg-white/[0.03] border border-white/10 rounded-[20px] backdrop-blur-md overflow-hidden group p-[28px] transition-all duration-500 ease-out ${isDimmed ? 'opacity-40 grayscale-[0.5] scale-[0.98]' : 'opacity-100 grayscale-0 scale-100'} ${className}`}
+      className={`relative bg-white/[0.03] border border-white/10 rounded-[20px] backdrop-blur-md overflow-hidden group p-[28px] ${className}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ 
+        duration: 0.6, 
+        ease: [0.16, 1, 0.3, 1],
+        opacity: { duration: 0.3 },
+        scale: { duration: 0.4 },
+        y: { duration: 0.4 }
+      }}
     >
       {/* Spotlight Glow */}
       <motion.div 
@@ -240,28 +252,29 @@ export default function About() {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
     const { scrollLeft, clientWidth } = scrollContainer;
-    const index = Math.round(scrollLeft / (clientWidth * 0.85));
+    // Calculate index based on card width (85vw) + gap (16px)
+    const cardWidth = clientWidth * 0.85;
+    const gap = 16;
+    const index = Math.round(scrollLeft / (cardWidth + gap));
     setActiveSlide(index);
   };
 
-  // Auto-scroll logic for mobile
+  // Auto-scroll logic for mobile - loops back to first card after 3s on each slide
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer || window.innerWidth >= 768) return;
 
     const interval = setInterval(() => {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
+      const { clientWidth } = scrollContainer;
+      const cardWidth = clientWidth * 0.85;
+      const gap = 16;
       const nextIndex = (activeSlide + 1) % cards.length;
       
-      if (nextIndex === 0) {
-        scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        scrollContainer.scrollTo({ 
-          left: nextIndex * (clientWidth * 0.85 + 16), 
-          behavior: 'smooth' 
-        });
-      }
-    }, 5000);
+      scrollContainer.scrollTo({ 
+        left: nextIndex * (cardWidth + gap), 
+        behavior: 'smooth' 
+      });
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [activeSlide, cards.length]);
@@ -332,26 +345,32 @@ export default function About() {
         </div>
 
         {/* --- MOBILE CAROUSEL LAYOUT --- */}
-        <div className="md:hidden w-full relative">
+        <div className="md:hidden w-full relative -mx-6 overflow-hidden">
           <div 
             ref={scrollRef}
             onScroll={handleScroll}
             className="flex gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 scroll-smooth"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {cards.map((card) => (
-              <div key={card.id} className="min-w-[85vw] snap-center">
+            {/* Spacers to allow centering first and last cards */}
+            <div className="flex-shrink-0 w-[calc(7.5vw-16px)]" />
+            
+            {cards.map((card, i) => (
+              <div key={card.id} className="min-w-[85vw] snap-center snap-always flex-shrink-0">
                 <BentoCard
                   width="100%"
                   height={480}
                   label={card.label}
                   graphic={card.graphic}
-                  className="!p-6"
+                  isDimmed={activeSlide !== i}
+                  className="!p-6 transition-all duration-700 ease-out"
                 >
                   {card.children}
                 </BentoCard>
               </div>
             ))}
+
+            <div className="flex-shrink-0 w-[calc(7.5vw-16px)]" />
           </div>
           
           {/* Progress Dots */}

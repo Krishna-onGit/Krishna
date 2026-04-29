@@ -5,7 +5,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 
 import FootballDialog from "@/components/FootballDialog";
-import SpotifyFloatingPlayer from "@/components/SpotifyFloatingPlayer";
+
 
 
 const playfair = Playfair_Display({
@@ -45,7 +45,7 @@ export default function RootLayout({
         <SmoothScroll>
           <CustomCursor />
           <FootballDialog />
-          <SpotifyFloatingPlayer />
+          
 
           {children}
         </SmoothScroll>
