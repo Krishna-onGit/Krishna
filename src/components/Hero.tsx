@@ -1,11 +1,9 @@
 'use client';
 
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import { useRef, useEffect } from 'react';
 import MobileNotice from './MobileNotice';
-
-const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -14,154 +12,173 @@ export default function Hero() {
     offset: ['start start', 'end start']
   });
 
-  // Mouse move parallax
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 25, stiffness: 150 };
-  const x = useSpring(useTransform(mouseX, [0, 1000], [-5, 5]), springConfig);
-  const yTranslate = useSpring(useTransform(mouseY, [0, 1000], [-5, 5]), springConfig);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
-
-  // Improved Motion System
-  const imageY = useTransform(scrollYProgress, [0, 1], ['0px', '-40px']);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const textYScroll = useTransform(scrollYProgress, [0, 1], ['0px', '-20px']);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.85]);
+  // Very subtle parallax for the background image
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
 
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[100dvh] overflow-hidden bg-black"
+      className="relative w-full min-h-[100dvh] bg-black grid grid-cols-1 md:grid-cols-2 overflow-hidden selection:bg-white selection:text-black"
       id="hero"
     >
       <MobileNotice />
-      {/* --- BACKGROUND IMAGE WITH PARALLAX --- */}
-      <motion.div
-        className="absolute inset-0 z-0 w-full h-[115%]"
-        initial={{ scale: 1.15, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-        style={{ 
-          y: imageY, 
-          scale: imageScale,
-          WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-          maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
-        }}
-      >
-        <Image
-          src="/profileimage.png"
-          alt="Krishna Enagandula"
-          fill
-          className="object-cover object-center brightness-90 contrast-[1.02]"
-          priority
-        />
-      </motion.div>
 
-      {/* --- OVERLAYS --- */}
-      {/* 1. Dark Gradient Overlay (Depth & Readability) */}
-      <div 
-        className="absolute inset-0 z-10 pointer-events-none"
-        style={{ 
-          background: `linear-gradient(to top, rgba(0,0,0,0.55), transparent 60%)`,
-        }}
-      />
-      
-      {/* Dynamic dark overlay on scroll */}
-      <motion.div 
-        className="absolute inset-0 z-10 pointer-events-none bg-black"
-        style={{ opacity: useTransform(scrollYProgress, [0, 1], [0, 0.3]) }}
-      />
-
-      {/* 2. Vignette Effect (Dark edges) */}
+      {/* Global Subtle Grain */}
       <div
-        className="absolute inset-0 z-10 pointer-events-none shadow-[inset_0_0_150px_rgba(0,0,0,0.5)]"
-      />
-
-      {/* 3. Bottom Blur Mask Shade (Transition Continuity) */}
-      <div 
-        className="absolute bottom-0 left-0 right-0 h-[30vh] z-15 pointer-events-none"
-        style={{ 
-          background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.8) 70%, black 100%)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          maskImage: 'linear-gradient(to bottom, transparent, black 40%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 40%)'
-        }}
-      />
-
-      {/* 4. Noise/Grain Texture */}
-      <div
-        className="absolute inset-0 z-10 pointer-events-none opacity-[0.03]"
+        className="absolute inset-0 z-30 pointer-events-none opacity-[0.04]"
         style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }}
       />
 
-      {/* --- BOTTOM BLOCK: Name + Tagline --- */}
-      <motion.div
-        className="absolute bottom-[8vh] left-0 right-0 page-padding z-50 flex flex-col items-center text-center gap-10"
-        style={{ y: textYScroll, opacity: textOpacity, x, translateY: yTranslate }}
-      >
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 0.45, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-mono text-white"
-        >
-          01 / Hero
-        </motion.span>
-
-        {/* Name */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <h1
-            className="text-display font-medium text-[#F2EDE6] leading-[1.2] tracking-[-1px] transition-colors duration-300 hover:text-white"
-            style={{ fontSize: 'clamp(48px, 8vw, 110px)' }}
-          >
+      {/* LEFT: Typography & Content */}
+      <div className="flex flex-col justify-center page-padding py-32 md:py-0 z-20 relative h-full bg-gradient-to-br from-white/[0.015] to-transparent">
+        <div className="flex flex-col gap-10 md:gap-14 max-w-[600px]">
+          
+          {/* Headline */}
+          <h1 className="text-[#F2EDE6] flex flex-col font-display">
             <div className="overflow-visible">
               <motion.span 
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                className="block"
+                initial={{ opacity: 0, filter: 'blur(8px)', y: 10 }}
+                animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                className="block font-medium tracking-normal text-white/80"
+                style={{ fontSize: 'clamp(48px, 6vw, 72px)', lineHeight: '1' }}
               >
                 Krishna
               </motion.span>
             </div>
-            <div className="overflow-visible opacity-90">
+            <div className="overflow-visible -mt-2 md:-mt-4">
               <motion.span 
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 1.05, ease: [0.16, 1, 0.3, 1] }}
-                className="block"
+                initial={{ opacity: 0, filter: 'blur(8px)', y: 10 }}
+                animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="block font-semibold tracking-[-0.04em]"
+                style={{ fontSize: 'clamp(64px, 8vw, 96px)', lineHeight: '0.95' }}
               >
                 Enagandula
               </motion.span>
             </div>
           </h1>
+
+          {/* Paragraph */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 0.75, y: 0 }}
+            transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="text-body text-[#EAEAEA] max-w-[460px]"
+          >
+            I stopped trying to fit into titles. <br />
+            I care about the tiny interactions people overlook— <br />
+            because that’s where software starts feeling human.
+          </motion.p>
+        </div>
+      </div>
+
+      {/* RIGHT: Image — Cinematic Treatment */}
+      <div className="relative h-[50vh] md:h-[100dvh] w-full z-10 overflow-hidden bg-[#0A0A0A]">
+
+        {/* Base image with tone tuning */}
+        <motion.div
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1.02 }}
+          transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0 origin-center"
+          style={{ y: imageY }}
+        >
+          <Image
+            src="/profileimage.png"
+            alt="Krishna Enagandula"
+            fill
+            className="object-cover object-center md:object-[35%_center]"
+            style={{ 
+              filter: 'saturate(90%) contrast(105%) brightness(95%)',
+              transition: 'transform 0.1s ease-out',
+              willChange: 'transform'
+            }}
+            priority
+          />
         </motion.div>
 
-        {/* Tagline */}
-        <motion.p
+        {/* Layer 1 — Seamless "Blurred" Merge Strip */}
+        <div
+          className="absolute inset-y-0 left-0 w-[30%] z-10 pointer-events-none"
+          style={{
+            backdropFilter: 'blur(30px)',
+            WebkitBackdropFilter: 'blur(30px)',
+            maskImage: 'linear-gradient(to right, black 20%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to right, black 20%, transparent)'
+          }}
+        />
+
+        {/* Layer 2 — Cinematic left-to-right gradient fade (primary blend) */}
+        <div
+          className="absolute inset-0 z-20 pointer-events-none"
+          style={{
+            background: `linear-gradient(
+              to right,
+              rgba(0,0,0,1.0)  0%,
+              rgba(0,0,0,1.0) 8%,
+              rgba(0,0,0,0.8) 20%,
+              rgba(0,0,0,0.4) 35%,
+              rgba(0,0,0,0.1) 50%,
+              rgba(0,0,0,0)    70%
+            )`
+          }}
+        />
+
+        {/* Layer 2 — Mobile top fade */}
+        <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-black to-transparent pointer-events-none md:hidden z-10" />
+
+        {/* Layer 3 — Subtle bottom vignette */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{
+            background: `linear-gradient(
+              to top,
+              rgba(0,0,0,0.6) 0%,
+              rgba(0,0,0,0.2) 25%,
+              rgba(0,0,0,0) 50%
+            )`
+          }}
+        />
+
+        {/* Layer 4 — Grain overlay (felt, not seen) */}
+        <div
+          className="absolute inset-0 z-20 pointer-events-none"
+          style={{
+            backgroundImage: `url("/grain.png")`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: '256px 256px',
+            opacity: 0.03,
+            mixBlendMode: 'overlay'
+          }}
+        />
+
+        {/* Personality Signature */}
+        <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }}
-          transition={{ duration: 1, delay: 1.4 }}
-          className="text-[12px] md:text-[21px] text-textSecondary max-w-xl font-mono mt-4 leading-relaxed"
+          animate={{ opacity: 0.2 }}
+          transition={{ duration: 2, delay: 1 }}
+          className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30"
         >
-          Designing systems. Building experiences. <br />
-          <span className="opacity-90">Bridging the gap between code and craft.</span>
-        </motion.p>
-      </motion.div>
+          <span className="text-mono text-[8px] text-white tracking-[0.5em] uppercase">Mumbai / 2026</span>
+        </motion.div>
+      </div>
+      {/* Bottom fade into About section */}
+      <div
+        className="absolute bottom-0 left-0 w-full pointer-events-none z-40"
+        style={{
+          height: '280px',
+          background: `linear-gradient(
+            to bottom,
+            rgba(0,0,0,0)   0%,
+            rgba(0,0,0,0.2) 20%,
+            rgba(0,0,0,0.6) 45%,
+            rgba(0,0,0,0.85) 65%,
+            rgba(0,0,0,1)   85%,
+            rgba(0,0,0,1)   100%
+          )`,
+        }}
+      />
     </section>
   );
 }

@@ -79,52 +79,45 @@ export default function Navbar() {
         }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 w-full z-[60] page-padding pb-8 flex items-center justify-between pointer-events-none"
-        style={{ paddingTop: '60px' }}
+        style={{ paddingTop: 'clamp(40px, 6vh, 80px)' }}
       >
         {/* --- Availability Tag (Desktop Only) --- */}
         <div className="hidden md:block">
           <Magnetic>
-            <div 
-              className="flex items-center gap-4 bg-[#1A1A1A]/10 backdrop-blur-[20px] rounded-full border border-glassBorder pointer-events-auto group hover:bg-[#1A1A1A]/20 transition-all duration-300 cursor-pointer"
-              style={{ height: '44px', paddingLeft: '29px', paddingRight: '29px' }}
-            >
+            <div className="flex items-center gap-3 pointer-events-auto group cursor-pointer py-2">
               <div className="relative flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-accent relative z-10" />
+                <div className="w-1.5 h-1.5 rounded-full bg-[#EAEAEA] relative z-10" />
                 <motion.div 
                   animate={{ 
-                    scale: [1, 2, 1],
-                    opacity: [0.6, 0.2, 0.6]
+                    scale: [1, 2.5, 1],
+                    opacity: [0.3, 0.1, 0.3]
                   }}
                   transition={{
-                    duration: 2.5,
+                    duration: 3,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
-                  className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-accent blur-[3px]"
+                  className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-white blur-[2px]"
                 />
               </div>
-              <span className="text-mono text-textPrimary/40 group-hover:text-textPrimary/80 text-[9px] font-semibold tracking-[0.4em] transition-all duration-300">
-                AVAILABLE FOR PROJECTS
+              <span className="text-ui-label text-white/50 group-hover:text-white/80 transition-all duration-300">
+                Available
               </span>
             </div>
           </Magnetic>
         </div>
 
-        {/* --- Navigation Links --- */}
-        <div 
-          className="hidden md:flex items-center gap-4 bg-[#1A1A1A]/10 backdrop-blur-[20px] rounded-full border border-glassBorder pointer-events-auto"
-          style={{ height: '44px', paddingLeft: '29px', paddingRight: '29px' }}
-        >
+        <div className="hidden md:flex items-center gap-8 pointer-events-auto py-2">
           {['About', 'Work', 'Process', 'Stack'].map((item) => {
             const isActive = activeSection === item.toLowerCase();
             return (
               <Magnetic key={item}>
                 <a 
                   href={`#${item.toLowerCase()}`} 
-                  className={`px-4 py-1 text-mono transition-all duration-300 font-semibold tracking-[0.3em] block text-[9px] ${
+                  className={`text-nav transition-all duration-300 block ${
                     isActive 
-                    ? 'text-textPrimary scale-110' 
-                    : 'text-textPrimary/40 hover:text-textPrimary'
+                    ? 'text-white' 
+                    : 'text-white/40 hover:text-white/80'
                   }`}
                   data-cursor="ink"
                 >
@@ -144,29 +137,26 @@ export default function Navbar() {
           y: isHidden ? 40 : 0
         }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] md:hidden pointer-events-auto"
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[60] md:hidden pointer-events-auto"
       >
-        <div 
-          className="flex items-center gap-3 bg-[#1A1A1A]/40 backdrop-blur-[20px] rounded-full border border-white/10 shadow-2xl"
-          style={{ height: '34px', paddingLeft: '16px', paddingRight: '16px' }}
-        >
+        <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center">
-            <div className="w-1 h-1 rounded-full bg-accent relative z-10" />
+            <div className="w-1.5 h-1.5 rounded-full bg-white relative z-10" />
             <motion.div 
               animate={{ 
                 scale: [1, 2.5, 1],
-                opacity: [0.6, 0.1, 0.6]
+                opacity: [0.4, 0.1, 0.4]
               }}
               transition={{
-                duration: 2,
+                duration: 3,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="absolute inset-0 w-1 h-1 rounded-full bg-accent blur-[2px]"
+              className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-white blur-[2px]"
             />
           </div>
-          <span className="text-mono text-white/60 text-[8px] font-bold tracking-[0.3em] whitespace-nowrap">
-            AVAILABLE FOR PROJECTS
+          <span className="text-ui-label text-white/60 whitespace-nowrap">
+            Available
           </span>
         </div>
       </motion.div>

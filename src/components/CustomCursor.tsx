@@ -8,7 +8,6 @@ export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isInkHovering, setIsInkHovering] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const [targetPoint, setTargetPoint] = useState<{ x: number, y: number } | null>(null);
 
   useEffect(() => {
     // 1. Mouse Position Logic
@@ -43,22 +42,12 @@ export default function CustomCursor() {
       }
     };
 
-    const handleDotMove = (e: any) => {
-      if (e.detail.active) {
-        setTargetPoint({ x: e.detail.x, y: e.detail.y });
-      } else {
-        setTargetPoint(null);
-      }
-    };
-
     window.addEventListener('mousemove', updateMousePosition, { passive: true });
     window.addEventListener('mouseover', handleMouseOver);
-    window.addEventListener('process-dot-move', handleDotMove);
 
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('mouseover', handleMouseOver);
-      window.removeEventListener('process-dot-move', handleDotMove);
     };
   }, []);
 
@@ -66,8 +55,8 @@ export default function CustomCursor() {
     <motion.div
       className={`custom-cursor hidden lg:flex items-center justify-center ${isHovering ? 'hovering' : ''} ${isInkHovering ? 'ink-active' : ''}`}
       animate={{
-        x: targetPoint ? targetPoint.x : mousePosition.x,
-        y: targetPoint ? targetPoint.y : mousePosition.y,
+        x: mousePosition.x,
+        y: mousePosition.y,
         scale: isInkHovering ? 1.1 : 1,
         opacity: 1,
       }}

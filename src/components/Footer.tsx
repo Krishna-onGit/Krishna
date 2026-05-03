@@ -46,7 +46,7 @@ export default function Footer() {
     >
       {/* Top Label - Desktop Only Absolute Positioning */}
       <div className="hidden lg:block absolute top-20 left-1/2 -translate-x-1/2 z-10">
-        <span className="text-mono text-[11px] text-textTertiary tracking-[0.4em] opacity-60">08 / CONTACT</span>
+        <span className="text-mono text-textTertiary opacity-60">08 / CONTACT</span>
       </div>
 
       {/* Background Big Text "KRISHNA" - Desktop Only Spotlight Effect */}
@@ -73,7 +73,7 @@ export default function Footer() {
       <div className="max-w-[1500px] mx-auto w-full relative z-10 flex flex-col items-center">
         {/* Mobile Label - Integrated into flow */}
         <div className="lg:hidden mb-12 opacity-40">
-          <span className="text-mono text-[10px] text-textTertiary tracking-[0.4em]">08 / CONTACT</span>
+          <span className="text-mono text-textTertiary">08 / CONTACT</span>
         </div>
 
         {/* Mobile Name - Only visible on mobile, follows order */}
@@ -142,7 +142,7 @@ export default function Footer() {
 
           {/* Right Zone: Headline - Order 4 on mobile */}
           <div className="text-center lg:text-right order-4 lg:order-3">
-            <h2 className="text-[26px] md:text-[32px] lg:text-[40px] font-medium text-white tracking-tighter leading-none whitespace-nowrap">
+            <h2 className="text-h2 text-white whitespace-nowrap">
               Let's build something.
             </h2>
           </div>
@@ -152,14 +152,14 @@ export default function Footer() {
         <div className="h-4 lg:h-48" aria-hidden="true" />
 
         {/* Footer Bar - Plain Text in Footer Flow */}
-        <div className="w-full border-t border-white/5 pt-24">
+        <div className="w-full border-t border-white/5 pt-24 mb-20">
           <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-16">
-            <span className="text-mono text-[10px] text-white/20 tracking-[0.1em] uppercase whitespace-nowrap">
+            <span className="text-nav text-white/40 whitespace-nowrap">
               Design & Dev by Krsna <span className="mx-2">•</span> © {new Date().getFullYear()}
             </span>
           </div>
         </div>
-        <div className="h-4 md:hidden" aria-hidden="true" />
+
       </div>
     </footer>
   );

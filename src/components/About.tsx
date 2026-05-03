@@ -79,7 +79,7 @@ const BentoCard = ({ width, height, label, graphic, children, className = "", is
       />
 
       {/* Label */}
-      <span className="absolute top-[18px] left-[18px] text-[10px] tracking-[0.3em] font-mono text-white/30 uppercase z-20">
+      <span className="absolute top-[18px] left-[18px] text-ui-label text-white/30 z-20">
         {label}
       </span>
 
@@ -141,10 +141,10 @@ export default function About() {
       graphic: <img src="/bento-stack-WHAT-I-DO.png" alt="" className="h-[230px] w-auto object-contain mix-blend-screen opacity-100 brightness-[1.2] contrast-[1.1] -translate-y-[44px]" />,
       children: (
         <div className="max-w-[80%]">
-          <p className="text-[18px] text-white font-medium leading-tight">
+          <p className="text-card-title text-white mb-2">
             I build digital products end-to-end
           </p>
-          <p className="text-[14px] text-white/50 mt-2 leading-relaxed">
+          <p className="text-body text-white/50">
             Visual systems to functional builds. I design the core system, then I scale it.
           </p>
         </div>
@@ -157,9 +157,9 @@ export default function About() {
       height: 440,
       graphic: <img src="/bento-stack-WHERE I’VE BUILT.png" alt="" className="w-[100%] h-auto object-contain mix-blend-screen opacity-100 brightness-[1.2] contrast-[1.1]" />,
       children: (
-        <div className="flex flex-col gap-2">
-          <p className="text-[14px] text-white font-medium">QUAN (2025 — Present)</p>
-          <ul className="text-[13px] text-white/50 space-y-1.5 list-none">
+        <div className="flex flex-col gap-3">
+          <p className="text-card-title text-white">QUAN (2025 — Present)</p>
+          <ul className="text-body text-white/50 space-y-2 list-none">
             <li className="flex items-center gap-2">
               <span className="w-1 h-1 rounded-full bg-[#A67C52]" />
               2+ SaaS products
@@ -184,11 +184,11 @@ export default function About() {
       graphic: <img src="/bento-stack-EDGE.png" alt="" className="w-[100%] h-auto object-contain mix-blend-screen opacity-100 brightness-[1.2] contrast-[1.1]" />,
       children: (
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col text-[14px] text-white/60 leading-relaxed border-l border-white/10 pl-4">
+          <div className="flex flex-col text-body text-white/60 border-l border-white/10 pl-4">
             <span>Most pick a lane.</span>
             <span className="text-white/90">I built the bridge.</span>
           </div>
-          <div className="flex justify-between items-center text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] pt-4 border-t border-white/[0.03]">
+          <div className="flex justify-between items-center text-mono text-white/40 pt-4 border-t border-white/[0.03]">
             <span>looks</span>
             <span className="w-1 h-1 rounded-full bg-white/20" />
             <span>works</span>
@@ -206,13 +206,13 @@ export default function About() {
       children: (
         <div className="flex h-full items-center flex-col md:flex-row">
           <div className="w-full md:w-1/2 md:pr-8">
-            <p className="text-[20px] text-white font-semibold leading-tight mb-3">
+            <p className="text-card-title text-white mb-3">
               AI is my execution engine
             </p>
-            <p className="text-[14px] text-white/50 leading-relaxed mb-4">
+            <p className="text-body text-white/50 mb-6">
               Utilizing advanced LLMs to accelerate build cycles and ensure pixel-perfect logic.
             </p>
-            <div className="flex gap-4 text-[9px] font-mono text-[#A67C52] uppercase tracking-[0.2em]">
+            <div className="flex gap-4 text-mono text-[#A67C52]">
               <span>idea</span>
               <span className="opacity-30">→</span>
               <span>system</span>
@@ -235,10 +235,10 @@ export default function About() {
       height: 304,
       children: (
         <div className="flex flex-col h-full justify-end">
-          <div className="flex flex-col text-[18px] leading-tight font-medium">
+          <div className="flex flex-col text-card-title">
             <span className="text-white/40">I don’t just design.</span>
             <span className="text-white/40">I don’t just build.</span>
-            <span className="text-[#A67C52] mt-1 italic">I take products from idea to reality.</span>
+            <span className="text-[#A67C52] mt-2 italic">I take products from idea to reality.</span>
           </div>
         </div>
       )
@@ -285,32 +285,50 @@ export default function About() {
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <motion.span 
           style={{ x: watermarkX, opacity: watermarkOpacity }}
-          className="text-[200px] md:text-[400px] font-serif font-semibold text-white tracking-tight whitespace-nowrap"
+          className="text-[200px] md:text-[400px] font-display font-semibold text-white tracking-tight whitespace-nowrap"
         >
           INTERSECTION
         </motion.span>
       </div>
 
-      <div className="w-full max-w-[1200px] mx-auto relative z-10 px-6 flex flex-col items-center gap-12">
-        {/* Header Section */}
-        <div className="flex flex-col items-center text-center">
+      <div className="w-full max-w-[1200px] mx-auto relative z-10 px-6 flex flex-col gap-12">
+        {/* Section Header */}
+        <div className="w-full relative mb-8 md:mb-12 pt-[120px] md:pt-[160px] flex flex-col md:flex-row md:justify-between items-start">
+          {/* Mobile Title */}
           <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.4 }}
-            className="text-mono text-white tracking-[0.4em] uppercase text-[10px] mb-8"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 0.8, y: 0 }}
+            viewport={{ once: true }}
+            className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
           >
             02 / About
           </motion.span>
-          <h2 className="text-[clamp(32px,5vw,64px)] font-display text-white tracking-tight leading-none mb-6">
-            I design. I build. <span className="italic text-[#A67C52]">No gap.</span>
-          </h2>
+
+          {/* Main Content (Left) */}
+          <div className="text-left max-w-[700px]">
+            <h2 className="text-h2 text-white">
+              I design. I build. <span className="italic text-[#A67C52]">No gap.</span>
+            </h2>
+          </div>
+
+          {/* Desktop Title (Right edge, slightly higher offset) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 0.8, y: 0 }}
+            viewport={{ once: true }}
+            className="hidden md:block -mt-[6px]"
+          >
+            <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
+              02 / About
+            </span>
+          </motion.div>
         </div>
 
         {/* --- DESKTOP GRID LAYOUT --- */}
         <div className="hidden md:flex relative mx-auto flex-col items-center" style={{ height: '800px' }}>
-          <div className="flex flex-col gap-[28px]">
+          <div className="flex flex-col gap-[16px]">
             {/* ROW 1 */}
-            <div className="flex gap-[24px] items-start" style={{ height: '440px' }}>
+            <div className="flex gap-[16px] items-start" style={{ height: '440px' }}>
               {cards.slice(0, 3).map((card) => (
                 <BentoCard
                   key={card.id}
@@ -326,7 +344,7 @@ export default function About() {
               ))}
             </div>
             {/* ROW 2 */}
-            <div className="flex gap-[24px] items-start" style={{ height: '304px' }}>
+            <div className="flex gap-[16px] items-start" style={{ height: '304px' }}>
               {cards.slice(3).map((card) => (
                 <BentoCard
                   key={card.id}
@@ -394,8 +412,8 @@ export default function About() {
             { v: "1", l: "Person Execution" }
           ].map((m, i) => (
             <div key={i} className="flex flex-col items-center text-center gap-1">
-              <span className="text-[24px] md:text-[32px] font-serif text-white">{m.v}</span>
-              <span className="text-[8px] md:text-[10px] uppercase tracking-widest text-white/40 font-mono">{m.l}</span>
+              <span className="text-h2 text-white">{m.v}</span>
+              <span className="text-ui-label text-white/40">{m.l}</span>
             </div>
           ))}
         </div>

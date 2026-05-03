@@ -63,21 +63,21 @@ function ProjectRow({
       className="group relative pt-8 pb-[10px] mb-[12px] last:mb-0 grid grid-cols-[1fr_auto] items-center z-10"
       data-cursor="View →"
     >
-      <div className="flex flex-col gap-0 min-w-0">
+      <div className="flex flex-col gap-1 min-w-0">
         <motion.h3 
           animate={{ x: isHovered ? 8 : 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="m-0 text-[24px] md:text-[34px] font-normal text-white/80 group-hover:text-white transition-colors duration-300 tracking-[-0.3px] whitespace-nowrap"
+          className="m-0 text-[24px] md:text-[34px] font-semibold font-display tracking-[-0.02em] text-white/80 group-hover:text-white transition-colors duration-300 whitespace-nowrap"
         >
           {work.name}
         </motion.h3>
-        <span className="m-0 text-[13px] text-white/40 font-mono group-hover:text-white/60 transition-colors mt-0">
+        <span className="m-0 text-ui-label text-white/40 group-hover:text-white/60 transition-colors mt-0">
           {work.type}
         </span>
       </div>
 
       <div className="text-right">
-        <span className="text-[12px] text-white/20 group-hover:text-white/60 transition-all duration-300 font-mono">
+        <span className="text-body text-[13px] text-white/30 group-hover:text-white/60 transition-all duration-300">
           {work.notes}
         </span>
       </div>
@@ -172,30 +172,35 @@ export default function Projects() {
       id="work"
       style={{ opacity: projectsOpacity, scale: projectsScale }}
     >
-      {/* ── Horizontal Scroll Panel ── */}
-      <div
-        ref={scrollWrapperRef}
-        className="h-[100dvh] w-full overflow-hidden bg-black relative flex items-center"
-      >
-        {/* Section label */}
-        <div className="absolute top-12 md:top-24 page-padding z-10 flex gap-12">
-          <div className="hidden md:block">
-            <motion.div 
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-mono text-textTertiary"
-            >
-              03 / Work
-            </motion.div>
-          </div>
+      {/* Wrapper to prevent GSAP pin spacer DOM mismatch with React */}
+      <div className="w-full relative">
+        {/* ── Horizontal Scroll Panel ── */}
+        <div
+          ref={scrollWrapperRef}
+          className="h-[100dvh] w-full overflow-hidden bg-black relative flex items-center"
+        >
+        {/* Section Header */}
+        <div className="absolute top-12 md:top-24 left-0 w-full page-padding z-10 flex flex-col md:flex-row md:justify-end items-start pointer-events-none">
+          {/* Mobile Title */}
           <motion.div 
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 0.8, y: 0 }}
             viewport={{ once: true }}
-            className="md:hidden text-mono text-textTertiary"
+            className="md:hidden text-mono text-white text-[13px] uppercase tracking-[0.1em] font-medium"
           >
             03 / Work
+          </motion.div>
+          
+          {/* Desktop Title (Right edge, slightly higher offset) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 0.8, y: 0 }}
+            viewport={{ once: true }}
+            className="hidden md:block -mt-[6px]"
+          >
+            <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
+              03 / Work
+            </span>
           </motion.div>
         </div>
 
@@ -221,17 +226,17 @@ export default function Projects() {
               </div>
               <div className="absolute bottom-12 left-12 right-12 md:bottom-16 md:left-16 md:right-16 z-20 flex flex-col justify-end">
                 <div className="flex gap-4 mb-6">
-                  <span className="text-mono text-[#A67C52] bg-[#A67C52]/5 px-4 py-1.5 rounded-full border border-[#A67C52]/10">
+                  <span className="text-mono text-[#A67C52] bg-[#A67C52]/5 px-4 py-1.5 rounded-[2px] border border-[#A67C52]/10">
                     Fullstack SaaS
                   </span>
                 </div>
-                <h2 className="text-[32px] md:text-[48px] font-medium font-display text-white mb-6 self-start">
+                <h2 className="text-h2 text-white mb-6 self-start">
                   <span className="relative">
                     LeadFlow AI
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A67C52] transition-all duration-700 ease-out group-hover:w-full" />
+                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#A67C52] transition-all duration-700 ease-out group-hover:w-full" />
                   </span>
                 </h2>
-                <p className="text-[15px] md:text-[16px] text-white/60 max-w-2xl leading-relaxed hidden md:block font-mono">
+                <p className="text-body text-white/60 max-w-2xl hidden md:block">
                   A multi-tenant real estate SaaS with two core products: a CRM for managing leads and a Lead Platform for discovery.
                 </p>
               </div>
@@ -258,13 +263,13 @@ export default function Projects() {
                 <span className="text-mono text-[#A67C52] mb-6 block">
                   Fullstack · AI Driven
                 </span>
-                <h2 className="text-[32px] md:text-[48px] font-medium font-display text-white mb-6 self-start">
+                <h2 className="text-h2 text-white mb-6 self-start">
                   <span className="relative">
                     StarConnect
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#A67C52] transition-all duration-700 ease-out group-hover:w-full" />
+                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#A67C52] transition-all duration-700 ease-out group-hover:w-full" />
                   </span>
                 </h2>
-                <p className="text-[15px] md:text-[16px] text-white/60 leading-relaxed hidden md:block font-mono">
+                <p className="text-body text-white/60 max-w-2xl hidden md:block">
                   LinkedIn-style social platform for Bollywood. Built using AI-assisted development workflows.
                 </p>
               </div>
@@ -273,26 +278,39 @@ export default function Projects() {
 
           {/* Trailing spacer */}
           <div className="w-[30vw] shrink-0 flex items-center justify-center">
-            <span className="font-serif text-3xl md:text-4xl text-white/50 italic animate-pulse">Keep scrolling</span>
+            <span className="text-quote text-white/50 animate-pulse">Keep scrolling</span>
           </div>
         </div>
       </div>
+    </div>
 
       {/* ── Client Work & Side Projects Section ── */}
       <div className="w-full section-padding page-padding relative bg-black text-white">
-        <div className="max-w-[1000px] mx-auto relative z-10">
+        <div className="w-full relative z-10">
           
           {/* Client Work Index */}
-          <div className="relative">
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 0.4, y: 0 }}
-              viewport={{ once: true }}
-              className="text-mono text-white/40 mb-4 md:mb-8 tracking-[0.4em] uppercase text-[10px] font-semibold"
-            >
-              04 / Client Work Index
-            </motion.p>
-            <div className="h-10 md:hidden" aria-hidden="true" />
+          <div className="relative pt-[120px] md:pt-[160px]">
+            {/* Section Header */}
+            <div className="w-full flex flex-col md:flex-row md:justify-end mb-8 md:mb-16">
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 0.8, y: 0 }}
+                viewport={{ once: true }}
+                className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
+              >
+                04 / Client Work Index
+              </motion.span>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 0.8, y: 0 }}
+                viewport={{ once: true }}
+                className="hidden md:block -mt-[6px]"
+              >
+                <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
+                  04 / Client Work Index
+                </span>
+              </motion.div>
+            </div>
             
             <div className="flex flex-col relative">
               {CLIENT_WORK.map((work, i) => (
@@ -325,11 +343,12 @@ export default function Projects() {
                   }}
                 >
                   <div className="w-full h-full rounded-lg overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.5)] bg-neutral-900 relative">
-                    <AnimatePresence mode="wait">
+                    <AnimatePresence>
                       <motion.div
                         key={hoveredWork.name}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
                         className="absolute inset-0"
                       >
@@ -351,16 +370,28 @@ export default function Projects() {
           <div className="h-32 md:h-[240px]" aria-hidden="true" />
 
           {/* Side Projects Grid */}
-          <div className="max-w-4xl">
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 0.7, y: 0 }}
-              viewport={{ once: true }}
-              className="text-mono text-white/40 mb-4 md:mb-8 tracking-[0.4em] uppercase text-[10px] font-semibold"
-            >
-              05 / Side Projects
-            </motion.p>
-            <div className="h-10 md:hidden" aria-hidden="true" />
+          <div className="w-full pt-[120px] md:pt-[160px]">
+            {/* Section Header */}
+            <div className="w-full flex flex-col md:flex-row md:justify-end mb-8 md:mb-16">
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 0.8, y: 0 }}
+                viewport={{ once: true }}
+                className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
+              >
+                05 / Side Projects
+              </motion.span>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 0.8, y: 0 }}
+                viewport={{ once: true }}
+                className="hidden md:block -mt-[6px]"
+              >
+                <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
+                  05 / Side Projects
+                </span>
+              </motion.div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-16 gap-y-6">
               {SIDE_PROJECTS.map((proj, i) => {
                 const [title, desc] = proj.split(' — ');
@@ -374,12 +405,12 @@ export default function Projects() {
                     className="group relative rounded-md px-4 py-6 border-b border-white/10 flex flex-col gap-3 cursor-default transition-all duration-300 hover:bg-white/[0.02] hover:border-white/20"
                   >
                     <div className="relative inline-block self-start overflow-hidden">
-                      <span className="text-[20px] md:text-[22px] leading-[1.15] text-white/85 group-hover:text-white transition-all duration-300 font-display tracking-[-0.01em]">
+                      <span className="text-card-title text-white/85 group-hover:text-white transition-all duration-300">
                         {title}
                       </span>
-                      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#A67C52]/60 transition-all duration-500 group-hover:w-full" />
+                      <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#A67C52]/60 transition-all duration-500 group-hover:w-full" />
                     </div>
-                    <span className="text-[13px] md:text-[14px] text-white/50 group-hover:text-white/65 transition-colors font-mono leading-[1.5]">
+                    <span className="text-body text-white/50 group-hover:text-white/65 transition-colors">
                       {desc}
                     </span>
                   </motion.div>
