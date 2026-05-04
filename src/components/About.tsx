@@ -304,7 +304,7 @@ export default function About() {
               viewport={{ once: true }}
               className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-4"
             >
-              02 / About
+              About
             </motion.span>
 
             <div className="max-w-[700px]">
@@ -322,7 +322,7 @@ export default function About() {
             className="hidden md:block -mt-[6px]"
           >
             <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
-              02 / About
+              About
             </span>
           </motion.div>
         </div>

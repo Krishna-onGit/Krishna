@@ -141,7 +141,7 @@ export default function Stack() {
             viewport={{ once: true }}
             className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
           >
-            07 / STACK
+            STACK
           </motion.span>
 
           {/* Main Content (Left) */}
@@ -174,7 +174,7 @@ export default function Stack() {
             className="hidden md:block -mt-[6px]"
           >
             <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
-              07 / STACK
+              STACK
             </span>
           </motion.div>
         </div>
@@ -197,7 +197,7 @@ export default function Stack() {
                 opacity: hoveredGroup === null || hoveredGroup === group.category ? 1 : 0.4
               }}
               transition={{ duration: 0.4 }}
-              className="group/item flex flex-col md:flex-row md:items-start border-b border-white/[0.03] py-4 md:py-12 last:border-none"
+              className="group/item flex flex-col md:flex-row md:items-start border-b border-white/[0.03] pt-12 pb-16 md:pt-6 md:pb-10 last:border-none"
             >
               <div className="w-[140px] shrink-0 mb-2 md:mb-0 pt-1">
                 <span className="text-ui-label text-white/30 group-hover/item:text-white/60 transition-colors duration-500 uppercase tracking-widest text-[11px]">

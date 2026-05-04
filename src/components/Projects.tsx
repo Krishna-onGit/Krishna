@@ -3,7 +3,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const CLIENT_WORK = [
   { name: 'Area Realty', type: 'Landing Page', notes: 'Real estate developer' },
@@ -20,6 +22,31 @@ const SIDE_PROJECTS = [
   'Workflow AI Clone — Landing page rebuild',
   'Messi Storyboard — 3D interaction-based visual narrative',
   'Manga Reading Website — UI exploration',
+];
+
+const PROJECTS_DATA = [
+  {
+    id: "01 / 02",
+    title: "LeadFlow AI",
+    type: "FULLSTACK SAAS · 18 MONTHS",
+    accentColor: "#FF5F1F", // Bright Neon Orange
+    tagline: "Built alone. 18 months. Three real estate developers running their business on it today.",
+    cta: "View case study",
+    href: "/work/leadflow",
+    previewImage: "/work-leadflow.png",
+    bgColor: "#FF5F1F"
+  },
+  {
+    id: "02 / 02",
+    title: "StarConnect",
+    type: "FULLSTACK · AI DRIVEN",
+    accentColor: "#CCFF00", // Bright Electric Lime
+    tagline: "A social network for an industry that doesn't have one.",
+    cta: "View project",
+    href: "/work/starconnect",
+    previewImage: "/work-starconnect.png",
+    bgColor: "#CCFF00"
+  }
 ];
 
 function ProjectRow({ 
@@ -61,23 +88,22 @@ function ProjectRow({
       onMouseLeave={handleMouseLeave}
       onMouseMove={onMouseMove}
       className="group relative pt-8 pb-[10px] mb-[12px] last:mb-0 grid grid-cols-[1fr_auto] items-center z-10"
-      data-cursor="View →"
     >
       <div className="flex flex-col gap-1 min-w-0">
         <motion.h3 
           animate={{ x: isHovered ? 8 : 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="m-0 text-[24px] md:text-[34px] font-semibold font-display tracking-[-0.02em] text-white/80 group-hover:text-white transition-colors duration-300 whitespace-nowrap"
+          className="m-0 text-[24px] md:text-[34px] font-semibold tracking-[-0.02em] text-white/80 group-hover:text-white transition-colors duration-300 whitespace-nowrap"
         >
           {work.name}
         </motion.h3>
-        <span className="m-0 text-ui-label text-white/40 group-hover:text-white/60 transition-colors mt-0">
+        <span className="m-0 text-[11px] uppercase tracking-[0.1em] text-white/40 group-hover:text-white/60 transition-colors mt-0">
           {work.type}
         </span>
       </div>
 
       <div className="text-right">
-        <span className="text-body text-[13px] text-white/30 group-hover:text-white/60 transition-all duration-300">
+        <span className="text-[13px] text-white/30 group-hover:text-white/60 transition-all duration-300 font-mono italic">
           {work.notes}
         </span>
       </div>
@@ -99,20 +125,8 @@ function ProjectRow({
 
 export default function Projects() {
   const containerRef = useRef<HTMLElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const scrollWrapperRef = useRef<HTMLDivElement>(null);
-
   const [hoveredWork, setHoveredWork] = useState<any>(null);
   const [rowRect, setRowRect] = useState<DOMRect | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-  
-  // Section fall-off
-  const projectsOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0.8, 1, 1, 0.8]);
-  const projectsScale = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0.98, 1, 1, 0.98]);
 
   // Derived preview position
   const springTop = useSpring(0, { stiffness: 100, damping: 20 });
@@ -135,181 +149,65 @@ export default function Projects() {
 
   const previewYTranslate = useTransform(springReactivity, (val) => `calc(-50% + ${val}px)`);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      if (scrollContainerRef.current && scrollWrapperRef.current) {
-        const getScrollAmount = () => {
-          const containerWidth = scrollContainerRef.current!.scrollWidth;
-          return -(containerWidth - window.innerWidth + 100);
-        };
-
-        const tween = gsap.to(scrollContainerRef.current, {
-          x: getScrollAmount,
-          ease: 'none',
-        });
-
-        ScrollTrigger.create({
-          trigger: scrollWrapperRef.current,
-          start: 'top top',
-          end: () => `+=${getScrollAmount() * -1}`,
-          pin: true,
-          animation: tween,
-          scrub: 1,
-          invalidateOnRefresh: true,
-        });
-      }
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <motion.section 
-      ref={containerRef} 
-      className="w-full relative" 
-      id="work"
-      style={{ opacity: projectsOpacity, scale: projectsScale }}
-    >
-      {/* Wrapper to prevent GSAP pin spacer DOM mismatch with React */}
-      <div className="w-full relative">
-        {/* ── Horizontal Scroll Panel ── */}
-        <div
-          ref={scrollWrapperRef}
-          className="h-[100dvh] w-full overflow-hidden bg-black relative flex items-center"
-        >
-        {/* Section Header */}
-        <div className="absolute top-12 md:top-24 left-0 w-full page-padding z-10 flex flex-col md:flex-row md:justify-end items-start pointer-events-none">
-          {/* Mobile Title */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 0.8, y: 0 }}
-            viewport={{ once: true }}
-            className="md:hidden text-mono text-white text-[13px] uppercase tracking-[0.1em] font-medium"
-          >
-            03 / Work
-          </motion.div>
-          
-          {/* Desktop Title (Right edge, slightly higher offset) */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 0.8, y: 0 }}
-            viewport={{ once: true }}
-            className="hidden md:block -mt-[6px]"
-          >
-            <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
-              03 / Work
-            </span>
-          </motion.div>
-        </div>
-
-        <div
-          ref={scrollContainerRef}
-          className="flex h-full items-center page-padding gap-16 md:gap-32 w-[300vw] md:w-[250vw] pt-4"
-        >
-          {/* Card 1 — LeadFlow AI */}
-          <div
-            className="w-[85vw] md:w-[65vw] h-[60vh] md:h-[65vh] shrink-0 group relative cursor-pointer"
-            data-cursor="Open →"
-          >
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full h-full bg-[#0a0a0a] border border-white/10 overflow-hidden rounded-2xl relative transform transition-all duration-700 group-hover:border-[#A67C52]/30 group-hover:-translate-y-2 shadow-2xl"
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
-              <div className="w-full h-full bg-black absolute inset-0 flex items-center justify-center opacity-40 group-hover:opacity-20 transition-opacity">
-                <span className="text-mono text-white/20">crm.lead-ai.in preview</span>
-              </div>
-              <div className="absolute bottom-12 left-12 right-12 md:bottom-16 md:left-16 md:right-16 z-20 flex flex-col justify-end">
-                <div className="flex gap-4 mb-6">
-                  <span className="text-mono text-[#A67C52] bg-[#A67C52]/5 px-4 py-1.5 rounded-[2px] border border-[#A67C52]/10">
-                    Fullstack SaaS
-                  </span>
-                </div>
-                <h2 className="text-h2 text-white mb-6 self-start">
-                  <span className="relative">
-                    LeadFlow AI
-                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#A67C52] transition-all duration-700 ease-out group-hover:w-full" />
-                  </span>
-                </h2>
-                <p className="text-body text-white/60 max-w-2xl hidden md:block">
-                  A multi-tenant real estate SaaS with two core products: a CRM for managing leads and a Lead Platform for discovery.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Card 2 — StarConnect */}
-          <div
-            className="w-[75vw] md:w-[50vw] h-[55vh] md:h-[60vh] shrink-0 group relative cursor-pointer"
-            data-cursor="Open →"
-          >
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full h-full bg-[#0a0a0a] border border-white/10 overflow-hidden rounded-2xl relative transform transition-all duration-700 group-hover:border-[#A67C52]/30 group-hover:-translate-y-2 shadow-2xl"
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
-              <div className="w-full h-full bg-black absolute inset-0 flex items-center justify-center opacity-40 group-hover:opacity-20 transition-opacity">
-                <span className="text-mono text-white/20">StarConnect preview</span>
-              </div>
-              <div className="absolute bottom-12 left-12 right-12 md:bottom-16 md:left-16 md:right-16 z-20 flex flex-col justify-end">
-                <span className="text-mono text-[#A67C52] mb-6 block">
-                  Fullstack · AI Driven
-                </span>
-                <h2 className="text-h2 text-white mb-6 self-start">
-                  <span className="relative">
-                    StarConnect
-                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#A67C52] transition-all duration-700 ease-out group-hover:w-full" />
-                  </span>
-                </h2>
-                <p className="text-body text-white/60 max-w-2xl hidden md:block">
-                  LinkedIn-style social platform for Bollywood. Built using AI-assisted development workflows.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Trailing spacer */}
-          <div className="w-[30vw] shrink-0 flex items-center justify-center">
-            <span className="text-quote text-white/50 animate-pulse">Keep scrolling</span>
-          </div>
-        </div>
+    <section ref={containerRef} className="relative w-full bg-black selection:bg-white selection:text-black pt-20" id="work">
+      {/* WORK HEADER */}
+      <div className="flex justify-end px-8 mb-40 z-30">
+        <span className="font-mono text-[11px] text-white/20 uppercase tracking-[0.1em]">WORK</span>
       </div>
-    </div>
 
-      {/* ── Client Work & Side Projects Section ── */}
-      <div className="w-full section-padding page-padding relative bg-black text-white">
+      {/* FEATURED PROJECTS (New UI) */}
+      <div className="flex flex-col">
+        {PROJECTS_DATA.map((project, index) => (
+          <React.Fragment key={project.title}>
+            <div 
+              className="group relative w-full h-[88vh] flex flex-col overflow-hidden transition-colors duration-500"
+              style={{ backgroundColor: project.bgColor }}
+            >
+              {/* 1. TOP BAR */}
+              <div className="h-[40px] border-b border-black/10 flex items-center justify-between px-8 shrink-0 z-10">
+                <span className="text-[10px] uppercase tracking-[0.12em] font-medium text-black/60">{project.type}</span>
+              </div>
+
+              {/* 2. TITLE ZONE */}
+              <div className="p-[60px_32px_20px] shrink-0 z-10">
+                <h2 className="font-extrabold tracking-[-0.04em] text-black m-0 text-[clamp(48px,8vw,96px)] leading-[0.95]" style={{ fontWeight: 800 }}>
+                  {project.title}
+                </h2>
+              </div>
+
+              {/* 3. SPACER */}
+              <div className="flex-1 z-10" />
+
+              {/* 4. BOTTOM BAR */}
+              <div className="p-[16px_32px_96px] flex justify-between items-end shrink-0 z-10">
+                <p className="text-[16px] italic text-black/60 max-w-[55%] m-0 leading-[1.55]">{project.tagline}</p>
+                <Link href={project.href} className="group/link flex items-center gap-1.5 text-[13px] text-black/60 hover:text-black transition-colors duration-150">
+                  <span className="font-medium">{project.cta}</span>
+                  <motion.span className="inline-block" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.15 }}>&rarr;</motion.span>
+                </Link>
+              </div>
+            </div>
+
+            {index < PROJECTS_DATA.length - 1 && (
+              <div className="relative w-full h-[1px] bg-white/[0.08] flex items-center justify-center my-40">
+                {/* Clean line separator */}
+              </div>
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* ── Client Work & Side Projects Section (Old UI) ── */}
+      <div className="w-full relative bg-black text-white page-padding">
         <div className="w-full relative z-10">
           
+          <div className="h-32 md:h-[120px]" />
+
           {/* Client Work Index */}
-          <div className="relative pt-[120px] md:pt-[160px]">
-            {/* Section Header */}
-            <div className="w-full flex flex-col md:flex-row md:justify-end mb-8 md:mb-16">
-              <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 0.8, y: 0 }}
-                viewport={{ once: true }}
-                className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
-              >
-                04 / Client Work Index
-              </motion.span>
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 0.8, y: 0 }}
-                viewport={{ once: true }}
-                className="hidden md:block -mt-[6px]"
-              >
-                <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
-                  04 / Client Work Index
-                </span>
-              </motion.div>
+          <div className="relative pt-[64px] md:pt-[120px]">
+            <div className="w-full flex justify-end mb-8 md:mb-16">
+              <span className="text-mono text-white/20 text-[11px] uppercase tracking-[0.1em]">Client Work Index</span>
             </div>
             
             <div className="flex flex-col relative">
@@ -325,7 +223,7 @@ export default function Projects() {
               ))}
             </div>
 
-            {/* Shared Anchored Preview */}
+            {/* Anchored Preview */}
             <AnimatePresence mode="wait">
               {hoveredWork && (
                 <motion.div
@@ -343,54 +241,23 @@ export default function Projects() {
                   }}
                 >
                   <div className="w-full h-full rounded-lg overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.5)] bg-neutral-900 relative">
-                    <AnimatePresence>
-                      <motion.div
-                        key={hoveredWork.name}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute inset-0"
-                      >
-                        <div className="w-full h-full flex items-center justify-center p-8 text-center">
-                          <span className="text-mono text-[10px] uppercase tracking-widest text-white/20">
-                            {hoveredWork.name} <br /> Case Study Preview
-                          </span>
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                      </motion.div>
-                    </AnimatePresence>
+                    <div className="w-full h-full flex items-center justify-center p-8 text-center">
+                      <span className="text-mono text-[10px] uppercase tracking-widest text-white/20">
+                        {hoveredWork.name} <br /> Case Study Preview
+                      </span>
+                    </div>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          {/* Robust Vertical Spacer */}
-          <div className="h-32 md:h-[240px]" aria-hidden="true" />
+          <div className="h-32 md:h-[120px]" />
 
           {/* Side Projects Grid */}
-          <div className="w-full pt-[120px] md:pt-[160px]">
-            {/* Section Header */}
-            <div className="w-full flex flex-col md:flex-row md:justify-end mb-8 md:mb-16">
-              <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 0.8, y: 0 }}
-                viewport={{ once: true }}
-                className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
-              >
-                05 / Side Projects
-              </motion.span>
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 0.8, y: 0 }}
-                viewport={{ once: true }}
-                className="hidden md:block -mt-[6px]"
-              >
-                <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
-                  05 / Side Projects
-                </span>
-              </motion.div>
+          <div className="w-full pt-[64px] md:pt-[120px] pb-40">
+            <div className="w-full flex justify-end mb-8 md:mb-16">
+              <span className="text-mono text-white/20 text-[11px] uppercase tracking-[0.1em]">Side Projects</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-16 gap-y-6">
               {SIDE_PROJECTS.map((proj, i) => {
@@ -405,12 +272,12 @@ export default function Projects() {
                     className="group relative rounded-md px-4 py-6 border-b border-white/10 flex flex-col gap-3 cursor-default transition-all duration-300 hover:bg-white/[0.02] hover:border-white/20"
                   >
                     <div className="relative inline-block self-start overflow-hidden">
-                      <span className="text-card-title text-white/85 group-hover:text-white transition-all duration-300">
+                      <span className="text-[18px] text-white/85 group-hover:text-white transition-all duration-300">
                         {title}
                       </span>
-                      <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#A67C52]/60 transition-all duration-500 group-hover:w-full" />
+                      <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-white/40 transition-all duration-500 group-hover:w-full" />
                     </div>
-                    <span className="text-body text-white/50 group-hover:text-white/65 transition-colors">
+                    <span className="text-[13px] text-white/50 group-hover:text-white/65 transition-colors">
                       {desc}
                     </span>
                   </motion.div>
@@ -420,6 +287,6 @@ export default function Projects() {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

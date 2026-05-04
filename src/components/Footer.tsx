@@ -46,7 +46,7 @@ export default function Footer() {
     >
       {/* Top Label - Desktop Only Absolute Positioning */}
       <div className="hidden lg:block absolute top-20 left-1/2 -translate-x-1/2 z-10">
-        <span className="text-mono text-textTertiary opacity-60">08 / CONTACT</span>
+        <span className="text-mono text-textTertiary opacity-60">CONTACT</span>
       </div>
 
       {/* Background Big Text "KRISHNA" - Desktop Only Spotlight Effect */}
@@ -73,7 +73,7 @@ export default function Footer() {
       <div className="max-w-[1500px] mx-auto w-full relative z-10 flex flex-col items-center">
         {/* Mobile Label - Integrated into flow */}
         <div className="lg:hidden mb-12 opacity-40">
-          <span className="text-mono text-textTertiary">08 / CONTACT</span>
+          <span className="text-mono text-textTertiary">CONTACT</span>
         </div>
 
         {/* Mobile Name - Only visible on mobile, follows order */}
