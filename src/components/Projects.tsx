@@ -160,7 +160,7 @@ export default function Projects() {
   const previewYTranslate = useTransform(springReactivity, (val) => `calc(-50% + ${val}px)`);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-black selection:bg-white selection:text-black pt-20" id="work">
+    <section ref={containerRef} className="relative w-full bg-black selection:bg-white selection:text-black py-0" id="work">
       {/* WORK HEADER */}
       <div className="flex flex-col md:flex-row md:justify-end page-padding mb-12 md:mb-40 z-30">
         <span className="md:hidden section-number">03</span>
@@ -174,10 +174,7 @@ export default function Projects() {
             <div 
               className="group relative w-full h-[70vh] md:h-[88vh] flex flex-col overflow-hidden transition-colors duration-500"
               style={{ 
-                backgroundColor: project.bgColor,
-                backgroundImage: isMobile
-                  ? (index === 0 ? 'linear-gradient(135deg, #0d1117, #111827)' : 'linear-gradient(135deg, #0d0d12, #1a1025)')
-                  : 'none'
+                backgroundColor: project.bgColor
               }}
             >
               {/* 1. TOP BAR */}
@@ -221,7 +218,7 @@ export default function Projects() {
           <div className="h-32 md:h-[120px]" />
 
           {/* Client Work Index */}
-          <div className="relative pt-[64px] md:pt-[120px] page-padding">
+          <div className="relative pt-0 page-padding">
             <div className="w-full flex flex-col md:flex-row md:justify-end mb-8 md:mb-16">
               <span className="md:hidden section-number">04</span>
               <span className="text-mono text-white/20 text-[11px] uppercase tracking-[0.1em]">Client Work Index</span>

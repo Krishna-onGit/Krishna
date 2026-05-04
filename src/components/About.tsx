@@ -1,370 +1,144 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll } from 'framer-motion';
 
-// --- BENTO CARD COMPONENT ---
-
-interface BentoCardProps {
-  width: string | number;
-  height: string | number;
+interface CardData {
   label: string;
-  graphic?: React.ReactNode;
-  children: React.ReactNode;
-  className?: string;
-  isDimmed?: boolean;
-  onHover?: (hovered: boolean) => void;
+  content: React.ReactNode;
 }
 
-const BentoCard = ({ width, height, label, graphic, children, className = "", isDimmed, onHover }: BentoCardProps) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
-  const rotateY = useTransform(mouseX, [-0.5, 0.5], [-5, 5]);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-    onHover?.(false);
-  };
-
-  return (
-    <motion.div
-      ref={cardRef}
-      style={{ 
-        width, 
-        height,
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d"
-      }}
-      animate={{
-        opacity: isDimmed ? 0.4 : 1,
-        scale: isDimmed ? 0.96 : 1,
-        y: isDimmed ? 10 : 0,
-        filter: isDimmed ? "grayscale(0.5) blur(1px)" : "grayscale(0) blur(0px)",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => onHover?.(true)}
-      onMouseLeave={handleMouseLeave}
-      className={`relative bg-white/[0.03] border border-white/10 rounded-2xl backdrop-blur-md overflow-hidden group p-[28px] ${className}`}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ 
-        duration: 0.6, 
-        ease: [0.16, 1, 0.3, 1],
-        opacity: { duration: 0.3 },
-        scale: { duration: 0.4 },
-        y: { duration: 0.4 }
-      }}
-    >
-      {/* Spotlight Glow */}
-      <motion.div 
-        className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: useMotionTemplate`radial-gradient(400px circle at ${useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"])} ${useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"])}, rgba(255,255,255,0.06), transparent 80%)`
-        }}
-      />
-
-      {/* Label */}
-      <span className="absolute top-[18px] left-[18px] text-ui-label text-white/30 z-20">
-        {label}
-      </span>
-
-      {/* Graphic - System-specific flow animation wrapper */}
-      {graphic && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10" style={{ transform: "translateZ(20px)" }}>
-          <motion.div 
-            animate={{ 
-              y: [0, -4, 0],
-            }}
-            transition={{ 
-              duration: 4, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-            className="group-hover:scale-105 transition-transform duration-700 ease-out"
-          >
-            {graphic}
-          </motion.div>
-        </div>
-      )}
-
-      {/* Text - Subtle Reveal Container */}
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="absolute bottom-[28px] left-[28px] right-[28px] z-20"
-        style={{ transform: "translateZ(30px)" }}
-      >
-        {children}
-      </motion.div>
-
-      {/* Subtle Frame Highlight */}
-      <div className="absolute inset-0 border border-white/5 rounded-2xl pointer-events-none" />
-    </motion.div>
-  );
-};
-
 export default function About() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const containerRef = useRef<HTMLElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  const watermarkX = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const watermarkOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.02, 0]);
-
-  const cards = [
+    const cards = [
     {
-      id: 1,
       label: "WHAT I DO",
-      width: 420,
-      height: 440,
-      graphic: <img src="/bento-stack-WHAT-I-DO.png" alt="" className="h-[230px] w-auto object-contain mix-blend-screen opacity-100 brightness-[1.2] contrast-[1.1] -translate-y-[44px]" />,
-      children: (
-        <div className="max-w-[80%]">
-          <p className="text-card-title text-white mb-2">
+      content: (
+        <>
+          <p className="text-[16px] text-white font-medium leading-relaxed mb-1">
             I build digital products end-to-end
           </p>
-          <p className="text-body text-white/50">
+          <p className="text-[15px] text-white/50 leading-relaxed font-light">
             Visual systems to functional builds. I design the core system, then I scale it.
           </p>
-        </div>
+        </>
       )
     },
     {
-      id: 2,
-      label: "WHERE I'VE BUILT",
-      width: 368,
-      height: 440,
-      graphic: <img src="/bento-stack-WHERE I'VE BUILT.png" alt="" className="w-[100%] h-auto object-contain mix-blend-screen opacity-100 brightness-[1.2] contrast-[1.1]" />,
-      children: (
-        <div className="flex flex-col gap-3">
-          <p className="text-card-title text-white">QUAN (2025 — Present)</p>
-          <ul className="text-body text-white/50 space-y-2 list-none">
-            <li className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-[#A67C52]" />
-              2+ SaaS products
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-[#A67C52]" />
-              3+ brand-focused platforms
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-[#A67C52]" />
-              UI + graphic systems
-            </li>
-          </ul>
-        </div>
-      )
-    },
-    {
-      id: 3,
-      label: "EDGE",
-      width: 348,
-      height: 440,
-      graphic: <img src="/bento-stack-EDGE.png" alt="" className="w-[100%] h-auto object-contain mix-blend-screen opacity-100 brightness-[1.2] contrast-[1.1]" />,
-      children: (
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col text-body text-white/60 border-l border-white/10 pl-4">
-            <span>Most pick a lane.</span>
-            <span className="text-white/90">I built the bridge.</span>
-          </div>
-          <div className="flex justify-between items-center text-mono text-white/40 pt-4 border-t border-white/[0.03]">
-            <span>looks</span>
-            <span className="w-1 h-1 rounded-full bg-white/20" />
-            <span>works</span>
-            <span className="w-1 h-1 rounded-full bg-white/20" />
-            <span>feels</span>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 4,
       label: "HOW I WORK",
-      width: 732,
-      height: 304,
-      children: (
-        <div className="flex h-full items-center flex-col md:flex-row">
-          <div className="w-full md:w-1/2 md:pr-8">
-            <p className="text-card-title text-white mb-3">
-              AI is my execution engine
-            </p>
-            <p className="text-body text-white/50 mb-6">
+      content: (
+        <>
+          <p className="text-[16px] text-white font-medium leading-relaxed mb-1">
+            AI is my execution engine
+          </p>
+          <div className="space-y-3">
+            <p className="text-[15px] text-white/50 leading-relaxed font-light">
               Utilizing advanced LLMs to accelerate build cycles and ensure pixel-perfect logic.
             </p>
-            <div className="flex gap-4 text-mono text-[#A67C52]">
-              <span>idea</span>
-              <span className="opacity-30">→</span>
-              <span>system</span>
-              <span className="opacity-30">→</span>
-              <span>build</span>
-              <span className="opacity-30">→</span>
-              <span>refine</span>
-            </div>
+            <p className="text-[14px] text-white/30 font-mono tracking-tight">
+              idea→system→build→refine
+            </p>
           </div>
-          <div className="w-full md:w-1/2 flex justify-center items-center mt-6 md:mt-0">
-            <img src="/bento-stack-HOW I WORK.png" alt="" className="w-[140%] h-auto object-contain mix-blend-screen opacity-100 brightness-[1.2] contrast-[1.1]" />
-          </div>
-        </div>
+        </>
       )
     },
     {
-      id: 5,
-      label: "FINAL STATEMENT",
-      width: 420,
-      height: 304,
-      children: (
-        <div className="flex flex-col h-full justify-end">
-          <div className="flex flex-col text-card-title">
-            <span className="text-white/40">I don't just design.</span>
-            <span className="text-white/40">I don't just build.</span>
-            <span className="text-[#A67C52] mt-2 italic">I take products from idea to reality.</span>
-          </div>
-        </div>
+      label: "WHY I WORK",
+      content: (
+        <>
+          <p className="text-[15px] text-white/50 leading-relaxed font-light mb-1">
+            I don't just design. I don't just build.
+          </p>
+          <p className="text-[16px] text-white font-medium leading-relaxed">
+            I take products from idea to reality.
+          </p>
+        </>
       )
     }
   ];
 
-  const [activeSlide, setActiveSlide] = useState(0);
-
-  // Update active slide on scroll
-  const handleScroll = () => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-    const { scrollLeft, clientWidth } = scrollContainer;
-    // Calculate index based on card width (85vw) + gap (16px)
-    const cardWidth = clientWidth * 0.85;
-    const gap = 16;
-    const index = Math.round(scrollLeft / (cardWidth + gap));
-    setActiveSlide(index);
-  };
-
-  // Auto-scroll logic for mobile - loops back to first card after 3s on each slide
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer || window.innerWidth >= 768) return;
-
-    const interval = setInterval(() => {
-      const { clientWidth } = scrollContainer;
-      const cardWidth = clientWidth * 0.85;
-      const gap = 16;
-      const nextIndex = (activeSlide + 1) % cards.length;
-      
-      scrollContainer.scrollTo({ 
-        left: nextIndex * (cardWidth + gap), 
-        behavior: 'smooth' 
-      });
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [activeSlide, cards.length]);
+  const metrics = [
+    { value: "2 SaaS", label: "" },
+    { value: "10+ Clients", label: "" },
+    { value: "1 Solo", label: "" }
+  ];
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-0 flex flex-col bg-black overflow-hidden py-0 page-padding" id="about">
-      {/* Background Watermark */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-        <motion.span 
-          style={{ x: watermarkX, opacity: watermarkOpacity }}
-          className="text-[200px] md:text-[400px] font-display font-semibold text-white tracking-tight whitespace-nowrap"
+    <section ref={containerRef} className="relative w-full bg-black py-0 page-padding overflow-hidden" id="about">
+      <div className="max-w-[1600px] mx-auto flex flex-col">
+        {/* Huge Headline */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="pb-10 md:pb-12"
         >
-          INTERSECTION
-        </motion.span>
-      </div>
+          <h2 className="text-[32px] md:text-h2 font-display font-medium text-white leading-[1.1] tracking-[-0.02em]">
+            I design. I build. <span className="opacity-90 italic">No gap.</span>
+          </h2>
+        </motion.div>
 
-      <div className="w-full relative z-10 flex flex-col gap-12">
-        {/* Section Header */}
-        <div className="w-full relative z-10 flex flex-col md:flex-row md:justify-between items-start mb-12 md:mb-20 pt-[120px] md:pt-[160px]">
-          <div className="flex flex-col">
-            <span className="md:hidden section-number">02</span>
-            <div className="max-w-[700px]">
-              <h2 className="text-[32px] md:text-h2 text-white leading-tight">
-                I design. I build. <span className="italic text-[#ebebeb]">No gap.</span>
-              </h2>
-            </div>
-          </div>
+        {/* Extra Spacer to ensure gap */}
+        <div className="h-8 md:h-10" />
 
-          {/* Desktop Title */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 0.8, y: 0 }}
-            viewport={{ once: true }}
-            className="hidden md:block -mt-[6px]"
-          >
-            <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
-              About
-            </span>
-          </motion.div>
+        {/* Carousel / Grid Container */}
+        <div className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible snap-x snap-mandatory hide-scrollbar border border-white/10 mb-6 md:mb-8">
+          {cards.map((card, index) => (
+            <motion.div 
+              key={index} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className={`flex-none w-[85vw] md:w-auto flex flex-col min-h-[380px] pt-8 pb-6 pl-10 snap-center md:pt-12 md:pb-8 md:pl-16 ${
+                index !== 0 ? 'md:border-l border-white/10' : ''
+              } ${index !== 0 ? 'border-l md:border-l-0 border-white/10' : ''}`}
+            >
+              <span className="text-mono text-white/40 text-[11px] tracking-[0.2em]">
+                {card.label}
+              </span>
+              
+              {/* Spacer to push content to bottom */}
+              <div className="flex-1" />
+              
+              <div className="min-h-[110px] flex flex-col justify-start pr-6 pb-2 md:pr-10 md:pb-4 max-w-[280px] md:max-w-[320px]">
+                {card.content}
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* --- BENTO LAYOUT --- */}
-        <div className="w-full flex flex-col gap-4">
-          {/* ROW 1 / MOBILE STACK */}
-          <div className="flex flex-col md:flex-row gap-4 md:items-start">
-            {cards.slice(0, 3).map((card) => (
-              <BentoCard
-                key={card.id}
-                width="100%"
-                height={440}
-                label={card.label}
-                graphic={card.graphic}
-                className="md:w-[33%]"
-                isDimmed={hoveredCard !== null && hoveredCard !== card.id}
-                onHover={(h) => setHoveredCard(h ? card.id : null)}
-              >
-                {card.children}
-              </BentoCard>
-            ))}
-          </div>
-          {/* ROW 2 / MOBILE STACK */}
-          <div className="flex flex-col md:flex-row gap-4 md:items-start">
-            {cards.slice(3).map((card) => (
-              <BentoCard
-                key={card.id}
-                width="100%"
-                height={304}
-                label={card.label}
-                graphic={card.graphic}
-                className="md:w-[50%]"
-                isDimmed={hoveredCard !== null && hoveredCard !== card.id}
-                onHover={(h) => setHoveredCard(h ? card.id : null)}
-              >
-                {card.children}
-              </BentoCard>
-            ))}
-          </div>
-        </div>
+        {/* Horizontal Line */}
+        <motion.div 
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+          className="w-full h-px bg-white/10 mt-16 md:mt-24 mb-12 md:mb-16 origin-left" 
+        />
 
-        {/* Bottom Metrics */}
-        <div className="mt-20 md:mt-32 w-full pt-12 border-t border-white/[0.05] grid grid-cols-3 gap-2 md:gap-8">
-          {[
-            { v: "2", l: "SaaS" },
-            { v: "10+", l: "Clients" },
-            { v: "1", l: "Solo" }
-          ].map((m, i) => (
-            <div key={i} className="flex flex-col items-center text-center gap-1 p-[16px_12px] md:p-0">
-              <span className="text-[28px] md:text-h2 font-[800] text-white leading-none">{m.v}</span>
-              <span className="text-mono text-[10px] uppercase tracking-widest text-white/40">{m.l}</span>
-            </div>
+        {/* Metrics Section */}
+        <div className="grid grid-cols-3 gap-4 md:gap-8 pt-8 md:pt-12">
+          {metrics.map((metric, index) => (
+            <motion.div 
+              key={index} 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
+              className="flex justify-center"
+            >
+              <span className="text-[16px] md:text-[28px] font-display text-white/90 tracking-tight whitespace-nowrap">
+                {metric.value}
+              </span>
+            </motion.div>
           ))}
         </div>
       </div>

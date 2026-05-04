@@ -10,7 +10,7 @@ export default function Process() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full page-padding bg-black pt-[120px] md:pt-[160px] pb-24 md:pb-48"
+      className="relative w-full page-padding bg-black py-0"
       id="process"
     >
       {/* Section Header */}
@@ -40,35 +40,35 @@ export default function Process() {
         className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full"
       >
         {/* Card 1 — Thinking First (wide) */}
-        <WobbleCard containerClassName="col-span-1 lg:col-span-2 min-h-[280px] bg-[#0f0f0f] border border-white/[0.07] border-left-[3px] border-left-[#FF5F1F] md:bg-[#FF5F1F] md:border-none">
-          <span className="text-mono text-white/40 md:text-black/40 mb-6 block font-bold">STEP 01</span>
-          <h2 className="text-h2 text-white md:text-black mb-4 max-w-[380px]">
+        <WobbleCard containerClassName="col-span-1 lg:col-span-2 min-h-[280px] bg-[#FF5F1F] border-none">
+          <span className="text-mono text-black/40 mb-6 block font-bold">STEP 01</span>
+          <h2 className="text-h2 text-black mb-4 max-w-[380px]">
             Thinking First.
           </h2>
-          <p className="text-body text-white/60 md:text-black/70 max-w-[360px]">
+          <p className="text-body text-black/70 max-w-[360px]">
             Most people start with tools. I start with the "why" — defining the core user journey before a single pixel moves.
           </p>
         </WobbleCard>
 
         {/* Card 2 — Visual Language (narrow) */}
-        <WobbleCard containerClassName="col-span-1 min-h-[280px] bg-[#0f0f0f] border border-white/[0.07] border-left-[3px] border-left-[#CCFF00] md:bg-[#CCFF00] md:border-none">
-          <span className="text-mono text-white/40 md:text-black/40 mb-6 block font-bold">STEP 02</span>
-          <h2 className="text-h2 text-white md:text-black mb-4">
+        <WobbleCard containerClassName="col-span-1 min-h-[280px] bg-[#CCFF00] border-none">
+          <span className="text-mono text-black/40 mb-6 block font-bold">STEP 02</span>
+          <h2 className="text-h2 text-black mb-4">
             Visual Language.
           </h2>
-          <p className="text-body text-white/60 md:text-black/70">
+          <p className="text-body text-black/70">
             Setting the aesthetic tone. A cohesive system balancing beauty with functional hierarchy.
           </p>
         </WobbleCard>
 
         {/* Card 3 — High-Octane Delivery (full width) */}
-        <WobbleCard containerClassName="col-span-1 lg:col-span-3 min-h-[240px] bg-[#0f0f0f] border border-white/[0.07] border-left-[3px] border-left-[#00F0FF] md:bg-[#00F0FF] md:border-none">
+        <WobbleCard containerClassName="col-span-1 lg:col-span-3 min-h-[240px] bg-[#00F0FF] border-none">
           <div className="flex flex-col max-w-[560px]">
-            <span className="text-mono text-white/40 md:text-black/40 mb-6 block font-bold">STEP 03</span>
-            <h2 className="text-h2 text-white md:text-black mb-4">
+            <span className="text-mono text-black/40 mb-6 block font-bold">STEP 03</span>
+            <h2 className="text-h2 text-black mb-4">
               High-Octane Delivery.
             </h2>
-            <p className="text-body text-white/60 md:text-black/70 max-w-[480px]">
+            <p className="text-body text-black/70 max-w-[480px]">
               Executing at speed. Building robust, scalable solutions using AI-augmented workflows — without quality compromise.
             </p>
           </div>
