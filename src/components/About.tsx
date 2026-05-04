@@ -58,7 +58,7 @@ const BentoCard = ({ width, height, label, graphic, children, className = "", is
       onMouseMove={handleMouseMove}
       onMouseEnter={() => onHover?.(true)}
       onMouseLeave={handleMouseLeave}
-      className={`relative bg-white/[0.03] border border-white/10 rounded-[20px] backdrop-blur-md overflow-hidden group p-[28px] ${className}`}
+      className={`relative bg-white/[0.03] border border-white/10 rounded-2xl backdrop-blur-md overflow-hidden group p-[28px] ${className}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -114,7 +114,7 @@ const BentoCard = ({ width, height, label, graphic, children, className = "", is
       </motion.div>
 
       {/* Subtle Frame Highlight */}
-      <div className="absolute inset-0 border border-white/5 rounded-[20px] pointer-events-none" />
+      <div className="absolute inset-0 border border-white/5 rounded-2xl pointer-events-none" />
     </motion.div>
   );
 };
@@ -152,10 +152,10 @@ export default function About() {
     },
     {
       id: 2,
-      label: "WHERE I’VE BUILT",
+      label: "WHERE I'VE BUILT",
       width: 368,
       height: 440,
-      graphic: <img src="/bento-stack-WHERE I’VE BUILT.png" alt="" className="w-[100%] h-auto object-contain mix-blend-screen opacity-100 brightness-[1.2] contrast-[1.1]" />,
+      graphic: <img src="/bento-stack-WHERE I'VE BUILT.png" alt="" className="w-[100%] h-auto object-contain mix-blend-screen opacity-100 brightness-[1.2] contrast-[1.1]" />,
       children: (
         <div className="flex flex-col gap-3">
           <p className="text-card-title text-white">QUAN (2025 — Present)</p>
@@ -236,8 +236,8 @@ export default function About() {
       children: (
         <div className="flex flex-col h-full justify-end">
           <div className="flex flex-col text-card-title">
-            <span className="text-white/40">I don’t just design.</span>
-            <span className="text-white/40">I don’t just build.</span>
+            <span className="text-white/40">I don't just design.</span>
+            <span className="text-white/40">I don't just build.</span>
             <span className="text-[#A67C52] mt-2 italic">I take products from idea to reality.</span>
           </div>
         </div>
@@ -280,7 +280,7 @@ export default function About() {
   }, [activeSlide, cards.length]);
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-0 flex flex-col items-center bg-black overflow-hidden py-0" id="about">
+    <section ref={containerRef} className="relative w-full min-h-0 flex flex-col items-center bg-black overflow-hidden py-0 page-padding" id="about">
       {/* Background Watermark */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <motion.span 
@@ -291,24 +291,27 @@ export default function About() {
         </motion.span>
       </div>
 
-      <div className="w-full max-w-[1200px] mx-auto relative z-10 px-6 flex flex-col gap-12">
+      <div className="w-full max-w-[1200px] mx-auto relative z-10 flex flex-col gap-12">
         {/* Section Header */}
         <div className="w-full relative mb-8 md:mb-12 pt-[120px] md:pt-[160px] flex flex-col md:flex-row md:justify-between items-start">
-          {/* Mobile Title */}
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 0.8, y: 0 }}
-            viewport={{ once: true }}
-            className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
-          >
-            02 / About
-          </motion.span>
+          
+          {/* Content Block */}
+          <div className="flex flex-col items-start">
+            {/* Mobile Title */}
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 0.8, y: 0 }}
+              viewport={{ once: true }}
+              className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-4"
+            >
+              02 / About
+            </motion.span>
 
-          {/* Main Content (Left) */}
-          <div className="text-left max-w-[700px]">
-            <h2 className="text-h2 text-white">
-              I design. I build. <span className="italic text-[#A67C52]">No gap.</span>
-            </h2>
+            <div className="max-w-[700px]">
+              <h2 className="text-[32px] md:text-h2 text-white leading-tight">
+                I design. I build. <span className="italic text-[#A67C52]">No gap.</span>
+              </h2>
+            </div>
           </div>
 
           {/* Desktop Title (Right edge, slightly higher offset) */}

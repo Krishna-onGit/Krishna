@@ -3,7 +3,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import MobileNotice from './MobileNotice';
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -18,10 +17,9 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[100dvh] bg-black grid grid-cols-1 md:grid-cols-2 overflow-hidden selection:bg-white selection:text-black"
+      className="relative w-full min-h-[100dvh] bg-black flex flex-col md:grid md:grid-cols-2 overflow-hidden selection:bg-white selection:text-black"
       id="hero"
     >
-      <MobileNotice />
 
       {/* Global Subtle Grain */}
       <div
@@ -29,9 +27,9 @@ export default function Hero() {
         style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }}
       />
 
-      {/* LEFT: Typography & Content */}
-      <div className="flex flex-col justify-center page-padding py-32 md:py-0 z-20 relative h-full bg-gradient-to-br from-white/[0.015] to-transparent">
-        <div className="flex flex-col gap-10 md:gap-14 max-w-[600px]">
+      {/* LEFT (Desktop) / BOTTOM (Mobile): Typography & Content */}
+      <div className="flex flex-col justify-center page-padding py-20 md:py-0 z-20 relative h-auto md:h-full bg-black md:bg-gradient-to-br md:from-white/[0.015] md:to-transparent order-2 md:order-1 -mt-[1px] md:mt-0">
+        <div className="flex flex-col gap-8 md:gap-14 max-w-[600px]">
           
           {/* Headline */}
           <h1 className="text-[#F2EDE6] flex flex-col font-display">
@@ -64,17 +62,17 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 0.75, y: 0 }}
             transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-body text-[#EAEAEA] max-w-[460px]"
+            className="text-body text-[#EAEAEA] max-w-[460px] md:pr-0 pr-4"
           >
             I stopped trying to fit into titles. <br />
             I care about the tiny interactions people overlook— <br />
-            because that’s where software starts feeling human.
+            because that's where software starts feeling human.
           </motion.p>
         </div>
       </div>
 
-      {/* RIGHT: Image — Cinematic Treatment */}
-      <div className="relative h-[50vh] md:h-[100dvh] w-full z-10 overflow-hidden bg-[#0A0A0A]">
+      {/* RIGHT (Desktop) / TOP (Mobile): Image — Cinematic Treatment */}
+      <div className="relative h-[60vh] md:h-[100dvh] w-full z-10 overflow-hidden bg-[#0A0A0A] order-1 md:order-2">
 
         {/* Base image with tone tuning */}
         <motion.div
@@ -98,9 +96,9 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* Layer 1 — Seamless "Blurred" Merge Strip */}
+        {/* Layer 1 — Seamless "Blurred" Merge Strip (Desktop Only) */}
         <div
-          className="absolute inset-y-0 left-0 w-[30%] z-10 pointer-events-none"
+          className="absolute inset-y-0 left-0 w-[30%] z-10 pointer-events-none hidden md:block"
           style={{
             backdropFilter: 'blur(30px)',
             WebkitBackdropFilter: 'blur(30px)',
@@ -109,9 +107,9 @@ export default function Hero() {
           }}
         />
 
-        {/* Layer 2 — Cinematic left-to-right gradient fade (primary blend) */}
+        {/* Layer 2 — Cinematic left-to-right gradient fade (primary blend - Desktop) */}
         <div
-          className="absolute inset-0 z-20 pointer-events-none"
+          className="absolute inset-0 z-20 pointer-events-none hidden md:block"
           style={{
             background: `linear-gradient(
               to right,
@@ -125,17 +123,20 @@ export default function Hero() {
           }}
         />
 
-        {/* Layer 2 — Mobile top fade */}
-        <div className="absolute inset-x-0 top-0 h-[45%] bg-gradient-to-b from-black to-transparent pointer-events-none md:hidden z-10" />
+        {/* Layer 2 — Mobile bottom fade (Full height for perfect blend) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none md:hidden z-10" />
 
-        {/* Layer 3 — Subtle bottom vignette */}
+        {/* Solid bottom overlap block (Ensures no line) */}
+        <div className="absolute bottom-0 inset-x-0 h-4 bg-black md:hidden z-10" />
+
+        {/* Layer 3 — Subtle bottom vignette (Desktop) */}
         <div
-          className="absolute inset-0 z-10 pointer-events-none"
+          className="absolute inset-0 z-10 pointer-events-none hidden md:block"
           style={{
             background: `linear-gradient(
               to top,
-              rgba(0,0,0,0.6) 0%,
-              rgba(0,0,0,0.2) 25%,
+              rgba(0,0,0,0.8) 0%,
+              rgba(0,0,0,0.4) 25%,
               rgba(0,0,0,0) 50%
             )`
           }}
@@ -145,7 +146,7 @@ export default function Hero() {
         <div
           className="absolute inset-0 z-20 pointer-events-none"
           style={{
-            backgroundImage: `url("/grain.png")`,
+            backgroundImage: `url("/noise.webp")`,
             backgroundRepeat: 'repeat',
             backgroundSize: '256px 256px',
             opacity: 0.03,
@@ -156,27 +157,20 @@ export default function Hero() {
         {/* Personality Signature */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.2 }}
+          animate={{ opacity: 0.4 }}
           transition={{ duration: 2, delay: 1 }}
           className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30"
         >
           <span className="text-mono text-[8px] text-white tracking-[0.5em] uppercase">Mumbai / 2026</span>
         </motion.div>
       </div>
-      {/* Bottom fade into About section */}
+
+      {/* Bottom fade into About section (Mobile only - Desktop transition is via LEFT div) */}
       <div
-        className="absolute bottom-0 left-0 w-full pointer-events-none z-40"
+        className="absolute bottom-0 left-0 w-full pointer-events-none z-40 md:hidden"
         style={{
-          height: '280px',
-          background: `linear-gradient(
-            to bottom,
-            rgba(0,0,0,0)   0%,
-            rgba(0,0,0,0.2) 20%,
-            rgba(0,0,0,0.6) 45%,
-            rgba(0,0,0,0.85) 65%,
-            rgba(0,0,0,1)   85%,
-            rgba(0,0,0,1)   100%
-          )`,
+          height: '100px',
+          background: `linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1))`,
         }}
       />
     </section>

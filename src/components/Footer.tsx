@@ -142,7 +142,7 @@ export default function Footer() {
 
           {/* Right Zone: Headline - Order 4 on mobile */}
           <div className="text-center lg:text-right order-4 lg:order-3">
-            <h2 className="text-h2 text-white whitespace-nowrap">
+            <h2 className="text-[32px] md:text-h2 text-white lg:whitespace-nowrap">
               Let's build something.
             </h2>
           </div>
