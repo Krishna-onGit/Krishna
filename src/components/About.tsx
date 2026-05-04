@@ -280,7 +280,7 @@ export default function About() {
   }, [activeSlide, cards.length]);
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-0 flex flex-col items-center bg-black overflow-hidden py-0 page-padding" id="about">
+    <section ref={containerRef} className="relative w-full min-h-0 flex flex-col bg-black overflow-hidden py-0 page-padding" id="about">
       {/* Background Watermark */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <motion.span 
@@ -291,30 +291,19 @@ export default function About() {
         </motion.span>
       </div>
 
-      <div className="w-full max-w-[1200px] mx-auto relative z-10 flex flex-col gap-12">
+      <div className="w-full relative z-10 flex flex-col gap-12">
         {/* Section Header */}
-        <div className="w-full relative mb-8 md:mb-12 pt-[120px] md:pt-[160px] flex flex-col md:flex-row md:justify-between items-start">
-          
-          {/* Content Block */}
-          <div className="flex flex-col items-start">
-            {/* Mobile Title */}
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 0.8, y: 0 }}
-              viewport={{ once: true }}
-              className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-4"
-            >
-              About
-            </motion.span>
-
+        <div className="w-full relative z-10 flex flex-col md:flex-row md:justify-between items-start mb-12 md:mb-20 pt-[120px] md:pt-[160px]">
+          <div className="flex flex-col">
+            <span className="md:hidden section-number">02</span>
             <div className="max-w-[700px]">
               <h2 className="text-[32px] md:text-h2 text-white leading-tight">
-                I design. I build. <span className="italic text-[#A67C52]">No gap.</span>
+                I design. I build. <span className="italic text-[#ebebeb]">No gap.</span>
               </h2>
             </div>
           </div>
 
-          {/* Desktop Title (Right edge, slightly higher offset) */}
+          {/* Desktop Title */}
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 0.8, y: 0 }}
@@ -327,96 +316,54 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* --- DESKTOP GRID LAYOUT --- */}
-        <div className="hidden md:flex relative mx-auto flex-col items-center" style={{ height: '800px' }}>
-          <div className="flex flex-col gap-[16px]">
-            {/* ROW 1 */}
-            <div className="flex gap-[16px] items-start" style={{ height: '440px' }}>
-              {cards.slice(0, 3).map((card) => (
-                <BentoCard
-                  key={card.id}
-                  width={card.width}
-                  height={card.height}
-                  label={card.label}
-                  graphic={card.graphic}
-                  isDimmed={hoveredCard !== null && hoveredCard !== card.id}
-                  onHover={(h) => setHoveredCard(h ? card.id : null)}
-                >
-                  {card.children}
-                </BentoCard>
-              ))}
-            </div>
-            {/* ROW 2 */}
-            <div className="flex gap-[16px] items-start" style={{ height: '304px' }}>
-              {cards.slice(3).map((card) => (
-                <BentoCard
-                  key={card.id}
-                  width={card.width}
-                  height={card.height}
-                  label={card.label}
-                  graphic={card.graphic}
-                  isDimmed={hoveredCard !== null && hoveredCard !== card.id}
-                  onHover={(h) => setHoveredCard(h ? card.id : null)}
-                >
-                  {card.children}
-                </BentoCard>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* --- MOBILE CAROUSEL LAYOUT --- */}
-        <div className="md:hidden w-full relative -mx-6 overflow-hidden">
-          <div 
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 scroll-smooth"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {/* Spacers to allow centering first and last cards */}
-            <div className="flex-shrink-0 w-[calc(7.5vw-16px)]" />
-            
-            {cards.map((card, i) => (
-              <div key={card.id} className="min-w-[85vw] snap-center snap-always flex-shrink-0">
-                <BentoCard
-                  width="100%"
-                  height={480}
-                  label={card.label}
-                  graphic={card.graphic}
-                  isDimmed={activeSlide !== i}
-                  className="!p-6 transition-all duration-700 ease-out"
-                >
-                  {card.children}
-                </BentoCard>
-              </div>
+        {/* --- BENTO LAYOUT --- */}
+        <div className="w-full flex flex-col gap-4">
+          {/* ROW 1 / MOBILE STACK */}
+          <div className="flex flex-col md:flex-row gap-4 md:items-start">
+            {cards.slice(0, 3).map((card) => (
+              <BentoCard
+                key={card.id}
+                width="100%"
+                height={440}
+                label={card.label}
+                graphic={card.graphic}
+                className="md:w-[33%]"
+                isDimmed={hoveredCard !== null && hoveredCard !== card.id}
+                onHover={(h) => setHoveredCard(h ? card.id : null)}
+              >
+                {card.children}
+              </BentoCard>
             ))}
-
-            <div className="flex-shrink-0 w-[calc(7.5vw-16px)]" />
           </div>
-          
-          {/* Progress Dots */}
-          <div className="flex justify-center gap-2 mt-2">
-            {cards.map((_, i) => (
-              <div 
-                key={i} 
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${
-                  activeSlide === i ? 'bg-[#A67C52] w-4' : 'bg-white/20'
-                }`}
-              />
+          {/* ROW 2 / MOBILE STACK */}
+          <div className="flex flex-col md:flex-row gap-4 md:items-start">
+            {cards.slice(3).map((card) => (
+              <BentoCard
+                key={card.id}
+                width="100%"
+                height={304}
+                label={card.label}
+                graphic={card.graphic}
+                className="md:w-[50%]"
+                isDimmed={hoveredCard !== null && hoveredCard !== card.id}
+                onHover={(h) => setHoveredCard(h ? card.id : null)}
+              >
+                {card.children}
+              </BentoCard>
             ))}
           </div>
         </div>
 
         {/* Bottom Metrics */}
-        <div className="mt-20 md:mt-32 w-full pt-12 border-t border-white/[0.05] grid grid-cols-3 gap-4 md:gap-8">
+        <div className="mt-20 md:mt-32 w-full pt-12 border-t border-white/[0.05] grid grid-cols-3 gap-2 md:gap-8">
           {[
             { v: "2", l: "SaaS" },
             { v: "10+", l: "Clients" },
-            { v: "1", l: "Person Execution" }
+            { v: "1", l: "Solo" }
           ].map((m, i) => (
-            <div key={i} className="flex flex-col items-center text-center gap-1">
-              <span className="text-h2 text-white">{m.v}</span>
-              <span className="text-ui-label text-white/40">{m.l}</span>
+            <div key={i} className="flex flex-col items-center text-center gap-1 p-[16px_12px] md:p-0">
+              <span className="text-[28px] md:text-h2 font-[800] text-white leading-none">{m.v}</span>
+              <span className="text-mono text-[10px] uppercase tracking-widest text-white/40">{m.l}</span>
             </div>
           ))}
         </div>

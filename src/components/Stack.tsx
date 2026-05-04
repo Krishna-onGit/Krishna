@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform, Variants } from 'framer-motion';
+import { Icon } from '@iconify/react';
 
 const TOOL_GROUPS = [
   {
@@ -130,22 +131,24 @@ export default function Stack() {
       id="stack"
       style={{ opacity: sectionOpacity, scale: sectionScale }}
     >
-      <div className="w-full max-w-[1200px] mx-auto relative z-10 flex flex-col gap-8 md:gap-10">
+      <div className="w-full relative z-10 flex flex-col gap-8 md:gap-10">
         {/* Section Header */}
-        <div className="w-full relative mb-8 md:mb-16 pt-[120px] md:pt-[160px] flex flex-col md:flex-row md:justify-between items-start">
-          
-          {/* Mobile Title */}
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 0.8, y: 0 }}
-            viewport={{ once: true }}
-            className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
-          >
-            STACK
-          </motion.span>
+        <div className="w-full relative mb-24 md:mb-32 pt-[120px] md:pt-[160px] flex flex-col md:flex-row md:justify-between items-start">
+          <div className="flex flex-col text-left max-w-[700px]">
+            {/* Mobile Title / Section Number */}
+            <div className="flex flex-col">
+              <span className="md:hidden section-number">07</span>
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 0.8, y: 0 }}
+                viewport={{ once: true }}
+                className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
+              >
+                STACK
+              </motion.span>
+            </div>
 
-          {/* Main Content (Left) */}
-          <div className="text-left max-w-[700px]">
+            {/* Main Content */}
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -166,7 +169,7 @@ export default function Stack() {
             </motion.p>
           </div>
 
-          {/* Desktop Title (Right edge, slightly higher offset) */}
+          {/* Desktop Title */}
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 0.8, y: 0 }}
@@ -197,37 +200,33 @@ export default function Stack() {
                 opacity: hoveredGroup === null || hoveredGroup === group.category ? 1 : 0.4
               }}
               transition={{ duration: 0.4 }}
-              className="group/item flex flex-col md:flex-row md:items-start border-b border-white/[0.03] pt-12 pb-16 md:pt-6 md:pb-10 last:border-none"
+              className="group/item flex flex-col md:flex-row md:items-start border-b border-white/[0.03] pt-12 pb-16 md:pt-20 md:pb-20 last:border-none"
             >
-              <div className="w-[140px] shrink-0 mb-2 md:mb-0 pt-1">
+              <div className="w-full md:w-[130px] shrink-0 mb-6 md:mb-0 pt-1">
                 <span className="text-ui-label text-white/30 group-hover/item:text-white/60 transition-colors duration-500 uppercase tracking-widest text-[11px]">
                   {group.category}
                 </span>
               </div>
               
-              <div className="grid grid-cols-5 md:flex md:flex-row items-start w-full gap-x-1 md:gap-x-0">
+              <div className="flex flex-row md:flex-nowrap items-start w-full gap-2 md:gap-0 pb-6 md:pb-12">
                 {group.tools.map((tool, idx) => (
                   <React.Fragment key={tool.name}>
                     {idx > 0 && (
-                      <div className="hidden md:flex items-center justify-center w-[40px] shrink-0">
+                      <div className="hidden md:flex items-center justify-center w-[50px] shrink-0">
                         <div className="h-6 w-[1px] bg-white/20" />
                       </div>
                     )}
                     <motion.div
                       variants={toolVariants}
-                      className="flex flex-col items-center md:items-start gap-1.5 md:gap-2 md:w-[180px]"
+                      className="flex flex-col items-center md:items-start gap-1 md:gap-2 w-[20%] md:flex-none min-w-0 md:w-[165px] md:shrink-0"
                     >
-                      <div className="flex flex-col md:flex-row items-center gap-1.5 md:gap-2.5">
-                        <img 
-                          src={`https://api.iconify.design/${tool.slug}.svg?color=white&v=1`} 
-                          alt="" 
-                          className="w-[14px] h-[14px] md:w-[18px] md:h-[18px] opacity-80 group-hover/tool:opacity-100 transition-opacity"
-                        />
-                        <span className="text-[10px] md:text-[18px] font-semibold text-white/90 hover:text-white transition-colors duration-300 text-center md:text-left leading-tight">
+                      <div className="flex flex-col md:flex-row items-center md:items-center gap-1.5 md:gap-2.5 text-center md:text-left">
+                        <Icon icon={tool.slug} className="w-5 h-5 md:w-6 md:h-6 text-white/50 group-hover/item:text-white transition-colors duration-500" />
+                        <span className="text-[10px] md:text-[18px] font-semibold text-white/90 hover:text-white transition-colors duration-300 leading-tight md:whitespace-nowrap">
                           {tool.name}
                         </span>
                       </div>
-                      <span className="hidden md:block text-[9px] uppercase tracking-[0.2em] text-white/30 font-medium">
+                      <span className="hidden md:block text-[10px] md:text-[9px] uppercase tracking-widest md:tracking-[0.2em] text-white/30 font-medium md:whitespace-nowrap">
                         {tool.sub}
                       </span>
                     </motion.div>

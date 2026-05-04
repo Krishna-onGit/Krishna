@@ -157,6 +157,23 @@ body {
   padding-right: clamp(40px, 10vw, 120px);
 }
 
+@media (max-width: 768px) {
+  .page-padding {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.section-number {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  display: block;
+}
+
 .section-padding {
   padding-top: var(--section-spacing);
   padding-bottom: var(--section-spacing);

@@ -15,7 +15,7 @@ export default function Hero() {
   const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
 
   return (
-    <section
+    <motion.section
       ref={containerRef}
       className="relative w-full min-h-[100dvh] bg-black flex flex-col md:grid md:grid-cols-2 overflow-hidden selection:bg-white selection:text-black"
       id="hero"
@@ -28,51 +28,41 @@ export default function Hero() {
       />
 
       {/* LEFT (Desktop) / BOTTOM (Mobile): Typography & Content */}
-      <div className="flex flex-col justify-center page-padding py-20 md:py-0 z-20 relative h-auto md:h-full bg-black md:bg-gradient-to-br md:from-white/[0.015] md:to-transparent order-2 md:order-1 -mt-[1px] md:mt-0">
+      <div className="flex flex-col justify-center page-padding pt-20 pb-12 md:py-0 z-20 relative h-auto md:h-full bg-black md:bg-gradient-to-br md:from-white/[0.015] md:to-transparent order-2 md:order-1 -mt-[1px] md:mt-0">
         <div className="flex flex-col gap-8 md:gap-14 max-w-[600px]">
           
           {/* Headline */}
-          <h1 className="text-[#F2EDE6] flex flex-col font-display">
-            <div className="overflow-visible">
+          <div className="flex flex-col">
+            <span className="md:hidden section-number">01</span>
+            <h1 className="text-[#F2EDE6] font-display">
               <motion.span 
                 initial={{ opacity: 0, filter: 'blur(8px)', y: 10 }}
                 animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                 transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                className="block font-medium tracking-normal text-white/80"
-                style={{ fontSize: 'clamp(48px, 6vw, 72px)', lineHeight: '1' }}
+                className="block font-medium tracking-tight text-white/80"
+                style={{ fontSize: 'clamp(36px, 9vw, 64px)', lineHeight: '1.1' }}
               >
-                Krishna
+                Krishna Enagandula
               </motion.span>
-            </div>
-            <div className="overflow-visible -mt-2 md:-mt-4">
-              <motion.span 
-                initial={{ opacity: 0, filter: 'blur(8px)', y: 10 }}
-                animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="block font-semibold tracking-[-0.04em]"
-                style={{ fontSize: 'clamp(64px, 8vw, 96px)', lineHeight: '0.95' }}
-              >
-                Enagandula
-              </motion.span>
-            </div>
-          </h1>
+            </h1>
+          </div>
 
-          {/* Paragraph */}
+          {/* Tagline */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 0.75, y: 0 }}
             transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-body text-[#EAEAEA] max-w-[460px] md:pr-0 pr-4"
+            className="text-body text-[#EAEAEA] max-w-[460px] text-[15px] md:text-[18px] leading-[1.65] md:leading-relaxed"
           >
-            I stopped trying to fit into titles. <br />
-            I care about the tiny interactions people overlook— <br />
+            I stopped trying to fit into titles. <br className="hidden md:block" />
+            I care about the tiny interactions people overlook— <br className="hidden md:block" />
             because that's where software starts feeling human.
           </motion.p>
         </div>
       </div>
 
       {/* RIGHT (Desktop) / TOP (Mobile): Image — Cinematic Treatment */}
-      <div className="relative h-[60vh] md:h-[100dvh] w-full z-10 overflow-hidden bg-[#0A0A0A] order-1 md:order-2">
+      <div className="relative h-[45vh] md:h-[100dvh] w-full z-10 overflow-hidden bg-[#0A0A0A] order-1 md:order-2 border-b md:border-b-0 border-white/[0.08]">
 
         {/* Base image with tone tuning */}
         <motion.div
@@ -86,93 +76,31 @@ export default function Hero() {
             src="/profileimage.png"
             alt="Krishna Enagandula"
             fill
-            className="object-cover object-center md:object-[35%_center]"
-            style={{ 
-              filter: 'saturate(90%) contrast(105%) brightness(95%)',
-              transition: 'transform 0.1s ease-out',
-              willChange: 'transform'
-            }}
+            className="object-cover object-top md:object-[35%_center] grayscale contrast-[1.1] brightness-[0.8]"
             priority
           />
         </motion.div>
 
-        {/* Layer 1 — Seamless "Blurred" Merge Strip (Desktop Only) */}
-        <div
-          className="absolute inset-y-0 left-0 w-[30%] z-10 pointer-events-none hidden md:block"
-          style={{
-            backdropFilter: 'blur(30px)',
-            WebkitBackdropFilter: 'blur(30px)',
-            maskImage: 'linear-gradient(to right, black 20%, transparent)',
-            WebkitMaskImage: 'linear-gradient(to right, black 20%, transparent)'
-          }}
-        />
+        {/* Cinematic Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20 z-10 md:hidden" />
+        <div className="absolute inset-y-0 left-0 w-[30%] z-10 pointer-events-none hidden md:block" style={{ backdropFilter: 'blur(30px)', maskImage: 'linear-gradient(to right, black 20%, transparent)' }} />
+        <div className="absolute inset-0 z-20 pointer-events-none hidden md:block" style={{ background: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 70%)' }} />
 
-        {/* Layer 2 — Cinematic left-to-right gradient fade (primary blend - Desktop) */}
-        <div
-          className="absolute inset-0 z-20 pointer-events-none hidden md:block"
-          style={{
-            background: `linear-gradient(
-              to right,
-              rgba(0,0,0,1.0)  0%,
-              rgba(0,0,0,1.0) 8%,
-              rgba(0,0,0,0.8) 20%,
-              rgba(0,0,0,0.4) 35%,
-              rgba(0,0,0,0.1) 50%,
-              rgba(0,0,0,0)    70%
-            )`
-          }}
-        />
+        {/* Mobile Metadata */}
+        <div className="md:hidden absolute bottom-6 left-6 z-40 flex flex-col gap-1">
+          <span className="text-mono text-[10px] text-white/30 uppercase tracking-[0.2em]">MUMBAI / 2026</span>
+        </div>
 
-        {/* Layer 2 — Mobile bottom fade (Full height for perfect blend) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none md:hidden z-10" />
-
-        {/* Solid bottom overlap block (Ensures no line) */}
-        <div className="absolute bottom-0 inset-x-0 h-4 bg-black md:hidden z-10" />
-
-        {/* Layer 3 — Subtle bottom vignette (Desktop) */}
-        <div
-          className="absolute inset-0 z-10 pointer-events-none hidden md:block"
-          style={{
-            background: `linear-gradient(
-              to top,
-              rgba(0,0,0,0.8) 0%,
-              rgba(0,0,0,0.4) 25%,
-              rgba(0,0,0,0) 50%
-            )`
-          }}
-        />
-
-        {/* Layer 4 — Grain overlay (felt, not seen) */}
-        <div
-          className="absolute inset-0 z-20 pointer-events-none"
-          style={{
-            backgroundImage: `url("/noise.webp")`,
-            backgroundRepeat: 'repeat',
-            backgroundSize: '256px 256px',
-            opacity: 0.03,
-            mixBlendMode: 'overlay'
-          }}
-        />
-
-        {/* Personality Signature */}
+        {/* Desktop Metadata */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
           transition={{ duration: 2, delay: 1 }}
-          className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30"
+          className="absolute bottom-10 right-10 z-30 hidden md:block"
         >
           <span className="text-mono text-[8px] text-white tracking-[0.5em] uppercase">Mumbai / 2026</span>
         </motion.div>
       </div>
-
-      {/* Bottom fade into About section (Mobile only - Desktop transition is via LEFT div) */}
-      <div
-        className="absolute bottom-0 left-0 w-full pointer-events-none z-40 md:hidden"
-        style={{
-          height: '100px',
-          background: `linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1))`,
-        }}
-      />
-    </section>
+    </motion.section>
   );
 }
