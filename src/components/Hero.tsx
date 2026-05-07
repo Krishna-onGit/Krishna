@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <motion.section
       ref={containerRef}
-      className="relative w-full min-h-[100dvh] bg-black flex flex-col md:grid md:grid-cols-2 overflow-hidden selection:bg-white selection:text-black"
+      className="relative w-full min-h-[100dvh] bg-bgPrimary flex flex-col md:grid md:grid-cols-2 overflow-hidden selection:bg-accent selection:text-bgPrimary transition-colors duration-500"
       id="hero"
     >
 
@@ -28,18 +28,18 @@ export default function Hero() {
       />
 
       {/* LEFT (Desktop) / BOTTOM (Mobile): Typography & Content */}
-      <div className="flex flex-col justify-center page-padding pt-10 pb-8 md:py-0 z-20 relative h-auto md:h-full bg-black md:bg-gradient-to-br md:from-white/[0.015] md:to-transparent order-2 md:order-1 -mt-[1px] md:mt-0">
+      <div className="flex flex-col justify-center page-padding pt-10 pb-8 md:py-0 z-20 relative h-auto md:h-full bg-bgPrimary md:bg-gradient-to-br md:from-bgSurface/20 md:to-transparent order-2 md:order-1 -mt-[1px] md:mt-0 transition-colors duration-500">
         <div className="flex flex-col gap-8 md:gap-14 max-w-[600px]">
           
           {/* Headline */}
           <div className="flex flex-col">
-            <span className="text-mono text-[10px] text-white/30 tracking-[0.2em] mb-4">01</span>
-            <h1 className="text-[#F2EDE6] font-display">
+            <span className="text-mono text-[10px] text-textTertiary tracking-[0.2em] mb-4">01</span>
+            <h1 className="text-textPrimary font-display">
               <motion.span 
                 initial={{ opacity: 0, filter: 'blur(8px)', y: 10 }}
                 animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                 transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                className="block font-medium tracking-tight text-white/90"
+                className="block font-medium tracking-tight text-textPrimary/90"
                 style={{ fontSize: 'clamp(40px, 10vw, 64px)', lineHeight: '1.1' }}
               >
                 Krishna Enagandula
@@ -52,7 +52,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 0.75, y: 0 }}
             transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-body text-[#EAEAEA] max-w-[460px] text-[15px] md:text-[18px] leading-[1.7] md:leading-relaxed font-light"
+            className="text-body text-textSecondary max-w-[460px] text-[15px] md:text-[18px] leading-[1.7] md:leading-relaxed font-light"
           >
             I stopped trying to fit into titles. <br className="hidden md:block" />
             I care about the tiny interactions people overlook— <br className="hidden md:block" />
@@ -61,22 +61,22 @@ export default function Hero() {
         </div>
 
         {/* Mobile Availability Footer */}
-        <div className="flex md:hidden items-center justify-between mt-20 pt-8 border-t border-white/5">
-          <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center">
-            <span className="text-white text-[12px] font-bold">K</span>
+        <div className="flex md:hidden items-center justify-between mt-20 pt-8 border-t border-line transition-colors">
+          <div className="w-10 h-10 rounded-full border border-line flex items-center justify-center">
+            <span className="text-textPrimary text-[12px] font-bold">K</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/40 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent/40 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
             </span>
-            <span className="text-mono text-[10px] text-white/60 tracking-[0.2em] uppercase">AVAILABLE</span>
+            <span className="text-mono text-[10px] text-textSecondary tracking-[0.2em] uppercase">AVAILABLE</span>
           </div>
         </div>
       </div>
 
       {/* RIGHT (Desktop) / TOP (Mobile): Image — Cinematic Treatment */}
-      <div className="relative h-[50vh] md:h-[100dvh] w-full z-10 overflow-hidden bg-[#0A0A0A] order-1 md:order-2 border-b md:border-b-0 border-white/[0.08]">
+      <div className="relative h-[50vh] md:h-[100dvh] w-full z-10 overflow-hidden bg-bgSecondary order-1 md:order-2 border-b md:border-b-0 border-line transition-colors">
 
         {/* Base image with tone tuning */}
         <motion.div
@@ -96,13 +96,13 @@ export default function Hero() {
         </motion.div>
 
         {/* Cinematic Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20 z-10 md:hidden" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bgPrimary via-transparent to-bgPrimary/20 z-10 md:hidden transition-colors" />
         <div className="absolute inset-y-0 left-0 w-[30%] z-10 pointer-events-none hidden md:block" style={{ backdropFilter: 'blur(30px)', maskImage: 'linear-gradient(to right, black 20%, transparent)' }} />
-        <div className="absolute inset-0 z-20 pointer-events-none hidden md:block" style={{ background: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 70%)' }} />
+        <div className="absolute inset-0 z-20 pointer-events-none hidden md:block transition-opacity duration-700 dark:opacity-100 opacity-20" style={{ background: 'linear-gradient(to right, var(--bg-primary) 0%, var(--bg-primary) 20%, transparent 70%)' }} />
 
         {/* Mobile Metadata Overlay */}
         <div className="md:hidden absolute bottom-6 left-6 z-40 flex flex-col gap-1">
-          <span className="text-mono text-[10px] text-white/40 uppercase tracking-[0.2em]">MUMBAI / 2026</span>
+          <span className="text-mono text-[10px] text-textTertiary uppercase tracking-[0.2em]">MUMBAI / 2026</span>
         </div>
 
         {/* Desktop Metadata */}
@@ -112,7 +112,7 @@ export default function Hero() {
           transition={{ duration: 2, delay: 1 }}
           className="absolute bottom-10 right-10 z-30 hidden md:block"
         >
-          <span className="text-mono text-[8px] text-white tracking-[0.5em] uppercase">Mumbai / 2026</span>
+          <span className="text-mono text-[8px] text-textPrimary tracking-[0.5em] uppercase">Mumbai / 2026</span>
         </motion.div>
       </div>
     </motion.section>

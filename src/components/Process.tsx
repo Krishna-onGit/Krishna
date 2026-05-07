@@ -10,14 +10,14 @@ export default function Process() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full page-padding bg-black py-0"
+      className="relative w-full page-padding bg-bgPrimary py-0 transition-colors duration-500"
       id="process"
     >
       {/* Section Header */}
       <div className="w-full flex flex-col md:flex-row md:justify-end mb-12 md:mb-20">
         <div className="flex flex-col">
           <span className="md:hidden section-number">06</span>
-          <span className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6">Process</span>
+          <span className="md:hidden text-mono text-textPrimary text-[13px] uppercase font-medium mb-6 transition-colors">Process</span>
         </div>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -25,7 +25,7 @@ export default function Process() {
           viewport={{ once: true }}
           className="hidden md:block -mt-[6px]"
         >
-          <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
+          <span className="text-mono text-textSecondary text-[13px] uppercase tracking-[0.2em] font-medium transition-colors">
             Process
           </span>
         </motion.div>

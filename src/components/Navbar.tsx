@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import { ThemeToggle } from './ThemeToggle';
 
 function Magnetic({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -86,7 +87,7 @@ export default function Navbar() {
           <Magnetic>
             <div className="flex items-center gap-3 pointer-events-auto group cursor-pointer py-2">
               <div className="relative flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#EAEAEA] relative z-10" />
+                <div className="w-1.5 h-1.5 rounded-full bg-accent relative z-10" />
                 <motion.div 
                   animate={{ 
                     scale: [1, 2.5, 1],
@@ -97,10 +98,10 @@ export default function Navbar() {
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
-                  className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-white blur-[2px]"
+                  className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-accent blur-[2px]"
                 />
               </div>
-              <span className="text-ui-label text-white/50 group-hover:text-white/80 transition-all duration-300">
+              <span className="text-ui-label text-textSecondary group-hover:text-textPrimary transition-all duration-300">
                 Available
               </span>
             </div>
@@ -116,8 +117,8 @@ export default function Navbar() {
                   href={`#${item.toLowerCase()}`} 
                   className={`text-nav transition-all duration-300 block ${
                     isActive 
-                    ? 'text-white' 
-                    : 'text-white/40 hover:text-white/80'
+                    ? 'text-textPrimary' 
+                    : 'text-textSecondary hover:text-textPrimary'
                   }`}
                   data-cursor="ink"
                 >
@@ -126,6 +127,10 @@ export default function Navbar() {
               </Magnetic>
             );
           })}
+          
+          <div className="ml-4">
+            <ThemeToggle />
+          </div>
         </div>
       </motion.nav>
 
@@ -141,7 +146,7 @@ export default function Navbar() {
       >
         <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center">
-            <div className="w-1.5 h-1.5 rounded-full bg-white relative z-10" />
+            <div className="w-1.5 h-1.5 rounded-full bg-accent relative z-10" />
             <motion.div 
               animate={{ 
                 scale: [1, 2.5, 1],
@@ -152,10 +157,10 @@ export default function Navbar() {
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-white blur-[2px]"
+              className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-accent blur-[2px]"
             />
           </div>
-          <span className="text-ui-label text-white/60 whitespace-nowrap">
+          <span className="text-ui-label text-textSecondary whitespace-nowrap">
             Available
           </span>
         </div>

@@ -9,7 +9,7 @@ import ThoughtCard from "@/components/ThoughtCard";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black flex flex-col w-full overflow-x-hidden">
+    <main className="min-h-screen bg-bgPrimary flex flex-col w-full overflow-x-hidden transition-colors duration-500">
       <Navbar />
       <div className="flex flex-col gap-16 md:gap-[120px]">
         <Hero />

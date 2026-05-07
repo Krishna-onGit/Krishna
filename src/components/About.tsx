@@ -52,10 +52,10 @@ export default function About() {
       label: "WHY I WORK",
       content: (
         <>
-          <p className="text-[15px] text-white/50 leading-relaxed font-light mb-1">
+          <p className="text-[15px] text-textSecondary leading-relaxed font-light mb-1">
             I don't just design. I don't just build.
           </p>
-          <p className="text-[16px] text-white font-medium leading-relaxed">
+          <p className="text-[16px] text-textPrimary font-medium leading-relaxed">
             I take products from idea to reality.
           </p>
         </>
@@ -70,7 +70,7 @@ export default function About() {
   ];
 
   return (
-    <section ref={containerRef} className="relative w-full bg-black py-0 page-padding overflow-hidden" id="about">
+    <section ref={containerRef} className="relative w-full bg-bgPrimary py-0 page-padding overflow-hidden transition-colors duration-500" id="about">
       <div className="max-w-[1600px] mx-auto flex flex-col">
         {/* Huge Headline */}
         <motion.div 
@@ -80,7 +80,7 @@ export default function About() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="pb-10 md:pb-12"
         >
-          <h2 className="text-[32px] md:text-h2 font-display font-medium text-white leading-[1.1] tracking-[-0.02em]">
+          <h2 className="text-[32px] md:text-h2 font-display font-medium text-textPrimary leading-[1.1] tracking-[-0.02em]">
             I design. I build. <span className="opacity-90 italic">No gap.</span>
           </h2>
         </motion.div>
@@ -89,7 +89,7 @@ export default function About() {
         <div className="h-8 md:h-10" />
 
         {/* Carousel / Grid Container */}
-        <div className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible snap-x snap-mandatory hide-scrollbar border border-white/10 mb-6 md:mb-8">
+        <div className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible snap-x snap-mandatory hide-scrollbar border border-line mb-6 md:mb-8 transition-colors">
           {cards.map((card, index) => (
             <motion.div 
               key={index} 
@@ -98,10 +98,10 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className={`flex-none w-[85vw] md:w-auto flex flex-col min-h-[380px] pt-8 pb-6 pl-10 snap-center md:pt-12 md:pb-8 md:pl-16 ${
-                index !== 0 ? 'md:border-l border-white/10' : ''
-              } ${index !== 0 ? 'border-l md:border-l-0 border-white/10' : ''}`}
+                index !== 0 ? 'md:border-l border-line' : ''
+              } ${index !== 0 ? 'border-l md:border-l-0 border-line' : ''}`}
             >
-              <span className="text-mono text-white/40 text-[11px] tracking-[0.2em]">
+              <span className="text-mono text-textTertiary text-[11px] tracking-[0.2em]">
                 {card.label}
               </span>
               
@@ -121,7 +121,7 @@ export default function About() {
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-          className="w-full h-px bg-white/10 mt-16 md:mt-24 mb-12 md:mb-16 origin-left" 
+          className="w-full h-px bg-line mt-16 md:mt-24 mb-12 md:mb-16 origin-left" 
         />
 
         {/* Metrics Section */}
@@ -135,7 +135,7 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
               className="flex justify-center"
             >
-              <span className="text-[16px] md:text-[28px] font-display text-white/90 tracking-tight whitespace-nowrap">
+              <span className="text-[16px] md:text-[28px] font-display text-textPrimary/90 tracking-tight whitespace-nowrap transition-colors">
                 {metric.value}
               </span>
             </motion.div>

@@ -55,7 +55,7 @@ export default function ThoughtCard() {
   const quoteMarksY = useTransform(philosophyScroll, [0, 1], [12, -12]);
   const editorialGlowY = useTransform(philosophyScroll, [0, 1], [40, -40]);
   const inkOpacity = useTransform(inkX, () => (isQuoteHovered ? 0.08 : 0));
-  const inkGradient = useMotionTemplate`radial-gradient(220px circle at ${inkX}px ${inkY}px, rgba(255,255,255,0.08), transparent 72%)`;
+  const inkGradient = useMotionTemplate`radial-gradient(220px circle at ${inkX}px ${inkY}px, var(--color-textPrimary), transparent 72%)`;
 
   const handleQuoteMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -81,18 +81,18 @@ export default function ThoughtCard() {
   return (
     <section 
       ref={philosophyRef}
-      className="w-full bg-black philosophy-section relative overflow-visible md:overflow-hidden page-padding py-0 min-h-0 flex flex-col items-center touch-pan-y"
+      className="w-full bg-bgPrimary philosophy-section relative overflow-visible md:overflow-hidden page-padding py-0 min-h-0 flex flex-col items-center touch-pan-y transition-colors duration-500"
     >
       <div className="w-full max-w-[1000px] mx-auto relative z-20 flex items-center justify-center">
         <motion.div
           style={{ y: editorialGlowY }}
           className="absolute -left-[10%] top-[8%] h-[380px] w-[380px] rounded-full pointer-events-none"
         >
-          <div className="h-full w-full bg-[radial-gradient(circle,rgba(255,255,255,0.05),transparent_70%)]" />
+          <div className="h-full w-full bg-[radial-gradient(circle,var(--color-line),transparent_70%)]" />
         </motion.div>
 
         <motion.div
-          className="relative w-full max-w-[900px] mx-auto border border-white/15 rounded-3xl min-h-[360px] md:min-h-[400px] overflow-visible md:overflow-hidden flex flex-col items-center justify-center touch-pan-y"
+          className="relative w-full max-w-[900px] mx-auto border border-line rounded-3xl min-h-[360px] md:min-h-[400px] overflow-visible md:overflow-hidden flex flex-col items-center justify-center touch-pan-y transition-colors duration-500 bg-bgSurface/50"
           onMouseMove={(e) => { if (window.innerWidth > 768) handleQuoteMouseMove(e); }}
           onMouseEnter={() => { if (window.innerWidth > 768) setIsQuoteHovered(true); }}
           onMouseLeave={() => { if (window.innerWidth > 768) setIsQuoteHovered(false); }}
@@ -108,7 +108,7 @@ export default function ThoughtCard() {
 
           <motion.div
             style={{ y: quoteMarksY }}
-            className="absolute right-[5%] top-[14%] text-[240px] leading-[0.8] text-white/[0.08] blur-[4px] pointer-events-none select-none z-0"
+            className="absolute right-[5%] top-[14%] text-[240px] leading-[0.8] text-textPrimary/[0.04] blur-[4px] pointer-events-none select-none z-0 transition-colors"
           >
             "
           </motion.div>
@@ -119,9 +119,9 @@ export default function ThoughtCard() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.7 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-8 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.04] px-[12px] py-[8px] backdrop-blur-[6px] transition-colors duration-300 hover:bg-white/[0.08]"
+            className="absolute top-8 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-2 rounded-md border border-line bg-bgSurface/80 px-[12px] py-[8px] backdrop-blur-[6px] transition-colors duration-300"
           >
-            <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 font-medium">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-textSecondary font-medium">
               Day {dailyQuote.dayCount} / Thought
             </span>
           </motion.div>
@@ -165,9 +165,9 @@ export default function ThoughtCard() {
               transition={{ delay: 0.4 }}
               className="mt-5 md:mt-8 flex flex-col items-center gap-1"
             >
-              <div className="w-8 h-[1px] bg-white/20 mb-2" />
-              <span className="text-mono text-[11px] uppercase tracking-[0.3em] text-white/80">Perspective</span>
-              <span className="text-serif italic text-sm text-white/40 font-medium">Krishna Enagandula</span>
+              <div className="w-8 h-[1px] bg-line mb-2" />
+              <span className="text-mono text-[11px] uppercase tracking-[0.3em] text-textSecondary">Perspective</span>
+              <span className="text-serif italic text-sm text-textTertiary font-medium">Krishna Enagandula</span>
             </motion.div>
           </div>
         </motion.div>

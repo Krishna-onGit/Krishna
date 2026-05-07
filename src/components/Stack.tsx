@@ -127,7 +127,7 @@ export default function Stack() {
   return (
     <motion.section 
       ref={containerRef}
-      className="relative w-full py-0 page-padding overflow-hidden bg-black" 
+      className="relative w-full py-0 page-padding overflow-hidden bg-bgPrimary transition-colors duration-500" 
       id="stack"
       style={{ opacity: sectionOpacity, scale: sectionScale }}
     >
@@ -142,7 +142,7 @@ export default function Stack() {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 0.8, y: 0 }}
                 viewport={{ once: true }}
-                className="md:hidden text-mono text-white text-[13px] uppercase font-medium mb-6"
+                className="md:hidden text-mono text-textPrimary text-[13px] uppercase font-medium mb-6 transition-colors"
               >
                 STACK
               </motion.span>
@@ -154,7 +154,7 @@ export default function Stack() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[32px] md:text-h2 text-[#EAEAEA] mb-4"
+              className="text-[32px] md:text-h2 text-textPrimary mb-4 transition-colors"
             >
               Capabilities.
             </motion.h2>
@@ -163,7 +163,7 @@ export default function Stack() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-body text-white/60 max-w-[620px]"
+              className="text-body text-textSecondary max-w-[620px] transition-colors"
             >
               Every tool chosen for a reason. Every layer owned end-to-end — from the first Figma frame to the deployed production system.
             </motion.p>
@@ -176,7 +176,7 @@ export default function Stack() {
             viewport={{ once: true }}
             className="hidden md:block -mt-[6px]"
           >
-            <span className="text-mono text-white/80 text-[13px] uppercase tracking-[0.2em] font-medium">
+            <span className="text-mono text-textSecondary text-[13px] uppercase tracking-[0.2em] font-medium transition-colors">
               STACK
             </span>
           </motion.div>
@@ -203,7 +203,7 @@ export default function Stack() {
               className="group/item flex flex-col md:flex-row md:items-start border-b border-white/[0.03] pt-12 pb-16 md:pt-20 md:pb-20 last:border-none"
             >
               <div className="w-full md:w-[130px] shrink-0 mb-6 md:mb-0 pt-1">
-                <span className="text-ui-label text-white/30 group-hover/item:text-white/60 transition-colors duration-500 uppercase tracking-widest text-[11px]">
+                <span className="text-ui-label text-textTertiary group-hover/item:text-textSecondary transition-colors duration-500 uppercase tracking-widest text-[11px]">
                   {group.category}
                 </span>
               </div>
@@ -213,7 +213,7 @@ export default function Stack() {
                   <React.Fragment key={tool.name}>
                     {idx > 0 && (
                       <div className="hidden md:flex items-center justify-center w-[50px] shrink-0">
-                        <div className="h-6 w-[1px] bg-white/20" />
+                        <div className="h-6 w-[1px] bg-line transition-colors" />
                       </div>
                     )}
                     <motion.div
@@ -221,12 +221,12 @@ export default function Stack() {
                       className="flex flex-col items-center md:items-start gap-1 md:gap-2 w-[20%] md:flex-none min-w-0 md:w-[165px] md:shrink-0"
                     >
                       <div className="flex flex-col md:flex-row items-center md:items-center gap-1.5 md:gap-2.5 text-center md:text-left">
-                        <Icon icon={tool.slug} className="w-5 h-5 md:w-6 md:h-6 text-white/50 group-hover/item:text-white transition-colors duration-500" />
-                        <span className="text-[10px] md:text-[18px] font-semibold text-white/90 hover:text-white transition-colors duration-300 leading-tight md:whitespace-nowrap">
+                        <Icon icon={tool.slug} className="w-5 h-5 md:w-6 md:h-6 text-textSecondary group-hover/item:text-textPrimary transition-colors duration-500" />
+                        <span className="text-[10px] md:text-[18px] font-semibold text-textPrimary hover:text-accent transition-colors duration-300 leading-tight md:whitespace-nowrap">
                           {tool.name}
                         </span>
                       </div>
-                      <span className="hidden md:block text-[10px] md:text-[9px] uppercase tracking-widest md:tracking-[0.2em] text-white/30 font-medium md:whitespace-nowrap">
+                      <span className="hidden md:block text-[10px] md:text-[9px] uppercase tracking-widest md:tracking-[0.2em] text-textTertiary font-medium md:whitespace-nowrap transition-colors">
                         {tool.sub}
                       </span>
                     </motion.div>

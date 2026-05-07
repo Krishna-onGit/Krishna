@@ -94,17 +94,17 @@ function ProjectRow({
         <motion.h3 
           animate={{ x: (isHovered && window.innerWidth > 768) ? 8 : 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="m-0 text-[15px] md:text-[34px] font-semibold md:font-semibold tracking-[-0.02em] text-white/80 group-hover:text-white transition-colors duration-300 whitespace-nowrap"
+          className="m-0 text-[15px] md:text-[34px] font-semibold md:font-semibold tracking-[-0.02em] text-textPrimary/80 group-hover:text-textPrimary transition-colors duration-300 whitespace-nowrap"
         >
           {work.name}
         </motion.h3>
-        <span className="m-0 text-[10px] md:text-[11px] uppercase tracking-[0.1em] text-white/40 group-hover:text-white/60 transition-colors mt-0">
+        <span className="m-0 text-[10px] md:text-[11px] uppercase tracking-[0.1em] text-textSecondary/60 group-hover:text-textSecondary transition-colors mt-0">
           {work.type}
         </span>
       </div>
 
       <div className="text-right">
-        <span className="text-[11px] md:text-[13px] text-white/30 group-hover:text-white/60 transition-all duration-300 font-mono italic">
+        <span className="text-[11px] md:text-[13px] text-textTertiary group-hover:text-textSecondary transition-all duration-300 font-mono italic">
           {work.notes}
         </span>
       </div>
@@ -115,11 +115,11 @@ function ProjectRow({
       <motion.div 
         initial={{ scaleX: 0.3, opacity: 0.5 }}
         animate={{ scaleX: isHovered ? 1 : 0.3, opacity: isHovered ? 1 : 0.5 }}
-        className="col-span-2 w-full h-[1px] bg-white/10 origin-left transition-all duration-500"
+        className="col-span-2 w-full h-[1px] bg-line origin-left transition-all duration-500"
       />
 
       {/* Subtle Row Highlight */}
-      <div className="absolute inset-0 bg-white/[0.01] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      <div className="absolute inset-0 bg-bgSurface opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
     </motion.div>
   );
 }
@@ -160,11 +160,11 @@ export default function Projects() {
   const previewYTranslate = useTransform(springReactivity, (val) => `calc(-50% + ${val}px)`);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-black selection:bg-white selection:text-black py-0" id="work">
+    <section ref={containerRef} className="relative w-full bg-bgPrimary selection:bg-accent selection:text-bgPrimary py-0 transition-colors duration-500" id="work">
       {/* WORK HEADER */}
       <div className="flex flex-col md:flex-row md:justify-end page-padding mb-12 md:mb-40 z-30">
         <span className="md:hidden section-number">03</span>
-        <span className="font-mono text-[11px] text-white/20 uppercase tracking-[0.1em]">WORK</span>
+        <span className="font-mono text-[11px] text-textTertiary uppercase tracking-[0.1em]">WORK</span>
       </div>
 
       {/* FEATURED PROJECTS (New UI) */}
@@ -203,7 +203,7 @@ export default function Projects() {
             </div>
 
             {index < PROJECTS_DATA.length - 1 && (
-              <div className="relative w-full h-[1px] bg-white/[0.08] flex items-center justify-center my-40">
+              <div className="relative w-full h-[1px] bg-line flex items-center justify-center my-40 transition-colors">
                 {/* Clean line separator */}
               </div>
             )}
@@ -212,7 +212,7 @@ export default function Projects() {
       </div>
 
       {/* ── Client Work & Side Projects Section (Old UI) ── */}
-      <div className="w-full relative bg-black text-white page-padding">
+      <div className="w-full relative bg-bgPrimary text-textPrimary page-padding transition-colors duration-500">
         <div className="w-full relative z-10">
           
           <div className="h-32 md:h-[120px]" />
@@ -221,7 +221,7 @@ export default function Projects() {
           <div className="relative pt-0 page-padding">
             <div className="w-full flex flex-col md:flex-row md:justify-end mb-8 md:mb-16">
               <span className="md:hidden section-number">04</span>
-              <span className="text-mono text-white/20 text-[11px] uppercase tracking-[0.1em]">Client Work Index</span>
+              <span className="text-mono text-textTertiary text-[11px] uppercase tracking-[0.1em]">Client Work Index</span>
             </div>
             
             <div className="flex flex-col relative">
@@ -254,9 +254,9 @@ export default function Projects() {
                     aspectRatio: '16/10'
                   }}
                 >
-                  <div className="w-full h-full rounded-lg overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.5)] bg-neutral-900 relative">
+                  <div className="w-full h-full rounded-lg overflow-hidden border border-line shadow-[0_30px_60px_var(--glass-shadow)] bg-bgSurface relative transition-colors duration-500">
                     <div className="w-full h-full flex items-center justify-center p-8 text-center">
-                      <span className="text-mono text-[10px] uppercase tracking-widest text-white/20">
+                      <span className="text-mono text-[10px] uppercase tracking-widest text-textTertiary">
                         {hoveredWork.name} <br /> Case Study Preview
                       </span>
                     </div>
@@ -272,7 +272,7 @@ export default function Projects() {
           <div className="w-full pt-[64px] md:pt-[120px] pb-40 page-padding">
             <div className="w-full flex flex-col md:flex-row md:justify-end mb-8 md:mb-16">
               <span className="md:hidden section-number">05</span>
-              <span className="text-mono text-white/20 text-[11px] uppercase tracking-[0.1em]">Side Projects</span>
+              <span className="text-mono text-textTertiary text-[11px] uppercase tracking-[0.1em]">Side Projects</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-16 gap-y-6">
               {SIDE_PROJECTS.map((proj, i) => {
@@ -284,15 +284,15 @@ export default function Projects() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                    className="group relative rounded-md px-4 py-6 border-b border-white/10 flex flex-col gap-3 cursor-default transition-all duration-300 hover:bg-white/[0.02] hover:border-white/20"
+                    className="group relative rounded-md px-4 py-6 border-b border-line flex flex-col gap-3 cursor-default transition-all duration-300 hover:bg-bgSurface/50 hover:border-line"
                   >
                     <div className="relative inline-block self-start overflow-hidden">
-                      <span className="text-[18px] text-white/85 group-hover:text-white transition-all duration-300">
+                      <span className="text-[18px] text-textPrimary/85 group-hover:text-textPrimary transition-all duration-300">
                         {title}
                       </span>
-                      <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-white/40 transition-all duration-500 group-hover:w-full" />
+                      <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-500 group-hover:w-full" />
                     </div>
-                    <span className="text-[13px] text-white/50 group-hover:text-white/65 transition-colors">
+                    <span className="text-[13px] text-textSecondary group-hover:text-textPrimary/80 transition-colors">
                       {desc}
                     </span>
                   </motion.div>

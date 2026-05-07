@@ -46,10 +46,10 @@ export const WobbleCard = ({
       )}
     >
       <div
-        className="relative h-full [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.08),rgba(255,255,255,0))] sm:mx-0 sm:rounded-2xl overflow-hidden"
+        className="relative h-full [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.1),rgba(255,255,255,0))] sm:mx-0 sm:rounded-2xl overflow-hidden"
         style={{
           boxShadow:
-            '0 10px 32px rgba(0,0,0,0.4), 0 1px 1px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.06), 0 4px 6px rgba(0,0,0,0.2), 0 24px 108px rgba(0,0,0,0.3)',
+            '0 10px 32px var(--glass-shadow), 0 1px 1px rgba(0,0,0,0.05), 0 0 0 1px var(--glass-border)',
         }}
       >
         <motion.div
